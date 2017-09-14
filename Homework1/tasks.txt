@@ -1,0 +1,51 @@
+Tasks
+•	2 teams – Red and blue 
+•	4 players –B1 & B2 and R1 & R2 
+
+1.Thread based client connection 
+a.	When client connecting needs to check whether the username is unique -- Done
+b.	If user enters not unique username there should be a message telling to update the username again. - Done
+b.	After connecting each user all other user needs to send the message - Done
+c.	Client side needs to display the user’s already in the system - Done
+d.	First player would be the B1, 2nd player R1, 3rd player B2 and last player R2. - Done
+e.	Client side all the players needs to display the “connecting…” message while all the players connect. - Done
+f.	When each and every player connects the instead of “connecting…” the relevant player’s username should display. - Done
+g.	After all the 4 players connect with the server should send card to each and every player to. - Done
+
+
+2. Deal cards
+a. 	Server needs to send cards all players. - Done
+b. 	One card cannot send to two players. - Done
+c.	Server needs to keep track of all cards that have in each users. - Done
+d.	Random card generating  - Done
+e.	Keep track of selected cards - Donevcxvcx
+	
+
+
+3. Bidding
+a. 	The First user appeared a popup to enter the bid values. - Done
+b. 	If the bid values if > 13 there should be a message. 
+c. 	After Player 1 sucess add his bid the next player(player 2) needs to appear a popup to add his bid
+d. 	Bids adding needs to continue until all players added their bid. - Done
+
+4. Game stat needs to procced and send to each clients. 
+a.	Before starting the game needs to display the bids.
+b. 	After each trick needs to update the game stat panel.
+
+5.Start the game
+a.	Player 1 selects a card and this needs to replicate to all other users.
+b.	If some player cheat it needs to track and send a message and halt until he selects another to procced.
+c.	After each trick the game stat needs to update.
+d.	If someone cheat display a message.
+e.	Select the current player who playing the card and keep that in the server side.
+f. 	After finishing each game it needs to pass to the other player who next to the current selected player.
+
+6.Match Stat
+a.	Server side keep the stat data
+b.	Client side display the stat in a different popup window.
+c.	Define a data structure for the match stat
+d.	Tracking winning one row
+
+	
+
+
