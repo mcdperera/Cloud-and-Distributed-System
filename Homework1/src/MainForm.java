@@ -58,10 +58,10 @@ public final class MainForm extends javax.swing.JFrame {
         serverConnectionLabel = new java.awt.Label();
         label1 = new java.awt.Label();
         usernameLabel = new java.awt.Label();
+        label3 = new java.awt.Label();
         dealAmountLabel = new java.awt.Label();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        label5 = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         connectMenuItem = new javax.swing.JMenuItem();
@@ -158,7 +158,6 @@ public final class MainForm extends javax.swing.JFrame {
         commonMessageTextArea.setVisible(false);
 
         mainInfoPanel.setBackground(new java.awt.Color(240, 240, 240));
-        mainInfoPanel.setMaximumSize(new java.awt.Dimension(292, 275));
 
         label4.setText("Server Connection");
 
@@ -168,6 +167,8 @@ public final class MainForm extends javax.swing.JFrame {
 
         usernameLabel.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
+        label3.setText("My bid");
+
         dealAmountLabel.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         jTextArea1.setColumns(20);
@@ -175,8 +176,6 @@ public final class MainForm extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jTextArea1.setText("Game stat needs to add.\n\n\t--------Blue Team----------\t---------Red Team----\n\tPlayer 1 \tPlayer 2 \tPlayer 3\tPlayer 4\nBid\t5\t6\t7\t8\t\nWon tricks\t2\t3\t5\t6");
         jScrollPane1.setViewportView(jTextArea1);
-
-        label5.setText("My bid");
 
         javax.swing.GroupLayout mainInfoPanelLayout = new javax.swing.GroupLayout(mainInfoPanel);
         mainInfoPanel.setLayout(mainInfoPanelLayout);
@@ -188,6 +187,7 @@ public final class MainForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainInfoPanelLayout.createSequentialGroup()
                         .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21)
                         .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,11 +196,6 @@ public final class MainForm extends javax.swing.JFrame {
                             .addComponent(serverConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainInfoPanelLayout.createSequentialGroup()
-                    .addGap(97, 97, 97)
-                    .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(157, Short.MAX_VALUE)))
         );
         mainInfoPanelLayout.setVerticalGroup(
             mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,15 +209,12 @@ public final class MainForm extends javax.swing.JFrame {
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dealAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainInfoPanelLayout.createSequentialGroup()
-                    .addGap(96, 96, 96)
-                    .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(159, Short.MAX_VALUE)))
+                .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dealAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110))
         );
 
         fileMenu.setText("File");
@@ -272,7 +264,7 @@ public final class MainForm extends javax.swing.JFrame {
                                 .addGap(282, 282, 282)
                                 .addComponent(b1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(playerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -289,6 +281,7 @@ public final class MainForm extends javax.swing.JFrame {
                                 .addComponent(r2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(b2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(334, 334, 334)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -307,13 +300,14 @@ public final class MainForm extends javax.swing.JFrame {
                 .addComponent(commonMessageTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(144, 144, 144)
                                 .addComponent(r1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(mainInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(b2Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -324,8 +318,7 @@ public final class MainForm extends javax.swing.JFrame {
                                         .addComponent(b1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(r1Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(121, 121, 121))))
-                            .addComponent(mainInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(121, 121, 121)))))
                         .addGap(24, 24, 24)
                         .addComponent(b1Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -475,8 +468,8 @@ public final class MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private java.awt.Label label1;
+    private java.awt.Label label3;
     private java.awt.Label label4;
-    private java.awt.Label label5;
     private java.awt.Panel mainInfoPanel;
     private java.awt.Panel playerPanel;
     private java.awt.Label r1Label;
@@ -567,7 +560,7 @@ public final class MainForm extends javax.swing.JFrame {
         panel.add(new JLabel("Your bid"));
         panel.add(dealText);
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Add your bid",
+        int result = JOptionPane.showConfirmDialog(null, panel, this.Username + " add your bid.",
                 JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         int amount = Integer.parseInt(dealText.getText());
@@ -601,19 +594,22 @@ public final class MainForm extends javax.swing.JFrame {
                 "Would you like procced?", "Warning", dialogButton);
         if (dialogResult == JOptionPane.YES_OPTION) {
 
-            loadSelectedCard(card);
+            loadSelectedCard(card, CurrentPanel);
 
             removeButtonFromPlayerPanel(card);
 
+            sendSelectedCardToServer(card);
         }
 
     }
 
-    private void loadSelectedCard(String card) {
+    private void loadSelectedCard(String card, Panel panel) {
         try {
             Image img = getImage(card);
-            loadCard(img, CurrentPanel, false);
-        } catch (Exception ex) {
+
+            loadCard(img, panel);
+
+        } catch (IOException ex) {
             System.out.println(ex);
         }
     }
@@ -632,6 +628,8 @@ public final class MainForm extends javax.swing.JFrame {
 
         playerPanel.revalidate();
         playerPanel.repaint();
+
+        playerPanel.setEnabled(false);
     }
 
     private void removeAllComponents(Panel panel) {
@@ -650,7 +648,7 @@ public final class MainForm extends javax.swing.JFrame {
         panel.repaint();
     }
 
-    private void loadCard(Image image, Panel panel, boolean isClickEventEnabled) {
+    private void loadCard(Image image, Panel panel) {
         removeAllComponents(panel);
 
         JButton label = new JButton();
@@ -662,7 +660,7 @@ public final class MainForm extends javax.swing.JFrame {
     private void loadCards(ArrayList<String> cards) {
         try {
 
-            CardList = cards;//Arrays.asList(cards.toLowerCase().split(","));
+            CardList = cards;
             java.util.Collections.sort(CardList);
             loadPlayerPanel();
 
@@ -687,24 +685,59 @@ public final class MainForm extends javax.swing.JFrame {
                     }
                 });
                 button.setSize(50, 75);
+
                 playerPanel.add(button);
             }
 
             playerPanel.revalidate();
             playerPanel.repaint();
-            
-            setPlayerPanel(false);
 
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
-    
-    private void setPlayerPanel(boolean enable)
-    {
-        playerPanel.setEnabled(enable);
+
+    private void selectCard() {
+        try {
+
+            JPanel panel = new JPanel(new GridLayout(0, 1));
+
+            panel.add(new JLabel("Select a card to procced "));
+
+            JOptionPane.showConfirmDialog(null, panel, this.Username + " select a card",
+                    JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            playerPanel.setEnabled(true);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
+    private void sendSelectedCardToServer(String card) {
+        Message message = new Message(MessageType.PLAYGAME_CLIENTRESPONSE.getValue(),
+                true, Username + " selected card : " + card, false, ErrorMessageType.NONE.getValue());
+
+        message.setPlayGameMessage(new PlayGameMessage(CurrentPlayer,
+                card));
+
+        ClientObj.sendMessage(message);
+    }
+
+//    private Panel GetPanel(String playerName) {
+//
+//        Panel returnPanel = null;
+//        if (playerName.equalsIgnoreCase("b1")) {
+//            returnPanel = b1Panel;
+//        } else if (playerName.equalsIgnoreCase("b2")) {
+//            returnPanel = b2Panel;
+//        } else if (playerName.equalsIgnoreCase("r1")) {
+//            returnPanel = r1Panel;
+//        } else if (playerName.equalsIgnoreCase("r2")) {
+//            returnPanel = r2Panel;
+//        }
+//        return returnPanel;
+//    }
     class ListenFromServer extends Thread {
 
         public void run() {
@@ -736,10 +769,16 @@ public final class MainForm extends javax.swing.JFrame {
                             setOtherPlayers(message.getConnectionMessage());
                             break;
                         case BIDDING_SERVERREQUEST:
-                            dealMessage(message.getBiddingMessage());
+                            biddingMessage(message.getBiddingMessage());
                             break;
                         case DEAL_CARDS_TO_CLIENT:
                             loadCardsMessage(message.getCardMessage());
+                            break;
+                        case PLAYGAME_SERVERREQUEST:
+                            playGameMessage(message.getPlayGameMessage());
+                            break;
+                        case PLAYGAME_SERVERRESPONSE:
+                            setOtherPlayerCard(message.getPlayGameMessage());
                             break;
 
                     }
@@ -800,13 +839,13 @@ public final class MainForm extends javax.swing.JFrame {
 
         private void setOtherPlayers(ConnectionMessage connectionMessage) {
             String player = connectionMessage.getPlayerName();
-            //CurrentPanel = selectPanel(player);
+
             selectLabel(player).setText(connectionMessage.getUsername());
         }
 
-        private void dealMessage(BiddingMessage dealMessage) {
+        private void biddingMessage(BiddingMessage biddingMessage) {
 
-            if (dealMessage.getPlayerName().equalsIgnoreCase(CurrentPlayer)) {
+            if (biddingMessage.getPlayerName().equalsIgnoreCase(CurrentPlayer)) {
                 addBidPopup();
 
             }
@@ -832,6 +871,21 @@ public final class MainForm extends javax.swing.JFrame {
                     break;
                 default:
                     throw new AssertionError(messageType.name());
+
+            }
+        }
+
+        private void playGameMessage(PlayGameMessage playGameMessage) {
+
+            if (playGameMessage.getPlayerName().equalsIgnoreCase(CurrentPlayer)) {
+                selectCard();
+            }
+        }
+
+        private void setOtherPlayerCard(PlayGameMessage playGameMessage) {
+            if (!playGameMessage.getPlayerName().equalsIgnoreCase(CurrentPlayer)) {
+                loadSelectedCard(playGameMessage.getCard(),
+                        selectPanel(playGameMessage.getPlayerName()));
 
             }
         }

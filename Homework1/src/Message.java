@@ -13,11 +13,11 @@ public class Message implements Serializable {
 
     private ConnectionMessage connectionMessage;
 
-    private DealMessage dealMessage;
-
     private BiddingMessage biddingMessage;
 
     private CardMessage cardMessage;
+
+    private PlayGameMessage playGameMessage;
 
     private boolean isError;
 
@@ -57,14 +57,6 @@ public class Message implements Serializable {
     void setBiddingMessage(BiddingMessage biddingMessage) {
         this.biddingMessage = biddingMessage;
     }
-    
-    DealMessage getDealMessage() {
-        return this.dealMessage;
-    }
-
-    void setDealMessage(DealMessage dealMessage) {
-        this.dealMessage = dealMessage;
-    }
 
     CardMessage getCardMessage() {
         return this.cardMessage;
@@ -72,6 +64,14 @@ public class Message implements Serializable {
 
     void setCardMessage(CardMessage cardMessage) {
         this.cardMessage = cardMessage;
+    }
+
+    PlayGameMessage getPlayGameMessage() {
+        return this.playGameMessage;
+    }
+
+    void setPlayGameMessage(PlayGameMessage playGameMessage) {
+        this.playGameMessage = playGameMessage;
     }
 
     boolean isError() {

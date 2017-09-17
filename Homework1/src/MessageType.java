@@ -21,8 +21,10 @@ public enum MessageType implements Serializable {
     BIDDING_CLIENTRESPONSE(7),
     DEAL_CARDS_TO_CLIENT(8),
     DEAL_CARD_TO_SERVER(9),
-    STARTPLAY_SERVERREQUEST(10);
-    
+    PLAYGAME_SERVERREQUEST(10),
+    PLAYGAME_CLIENTRESPONSE(11),
+    PLAYGAME_SERVERRESPONSE(12);
+
     private final int value;
 
     private MessageType(int value) {
@@ -63,10 +65,15 @@ public enum MessageType implements Serializable {
             case 9:
                 messageType = MessageType.DEAL_CARD_TO_SERVER;
                 break;
-                   case 10:
-                messageType = MessageType.STARTPLAY_SERVERREQUEST;
+            case 10:
+                messageType = MessageType.PLAYGAME_SERVERREQUEST;
                 break;
-                
+            case 11:
+                messageType = MessageType.PLAYGAME_CLIENTRESPONSE;
+                break;
+            case 12:
+                messageType = MessageType.PLAYGAME_SERVERRESPONSE;
+                break;
             default:
                 break;
         }

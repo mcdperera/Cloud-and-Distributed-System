@@ -90,7 +90,7 @@
                           </Group>
                           <Component id="playerPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="177" max="32767" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -132,7 +132,7 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="131" max="32767" attributes="0"/>
+              <EmptySpace pref="63" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -140,6 +140,7 @@
                               <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
                               <Component id="r1Panel" linkSize="7" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="mainInfoPanel" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="b2Label" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -155,7 +156,6 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Component id="mainInfoPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="b1Label" min="-2" max="-2" attributes="0"/>
@@ -343,20 +343,18 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f0" green="f0" red="f0" type="rgb"/>
         </Property>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[292, 275]"/>
-        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="label1" min="-2" max="-2" attributes="0"/>
+                              <Component id="label3" min="-2" max="-2" attributes="0"/>
                               <Component id="label4" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -369,13 +367,6 @@
                       <Component id="jScrollPane1" alignment="1" min="-2" pref="262" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
-                      <Component id="label5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="157" max="32767" attributes="0"/>
-                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -393,17 +384,13 @@
                       <Component id="usernameLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="dealAmountLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="136" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                      <Component id="label5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="159" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="label3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dealAmountLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="76" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -433,6 +420,11 @@
             </Property>
           </Properties>
         </Component>
+        <Component class="java.awt.Label" name="label3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="My bid"/>
+          </Properties>
+        </Component>
         <Component class="java.awt.Label" name="dealAmountLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -459,11 +451,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="java.awt.Label" name="label5">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="My bid"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

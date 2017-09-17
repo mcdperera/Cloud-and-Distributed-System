@@ -22,6 +22,8 @@ public class Server {
 
     private static int clientIndex = -1;
 
+    private static int firstPlayerIndex = -1;
+
     private final ArrayList<ClientThread> Clients;
 
     private final SimpleDateFormat simpleDateFormat;
@@ -33,7 +35,9 @@ public class Server {
     // When stoping the server needs to change.
     private boolean keepGoing;
 
-    private String currentPlayer;
+    private boolean gameStart;
+
+    private String SelectedCardSuit;
 
     /**
      * Desired port to connect with the client.
@@ -212,6 +216,24 @@ public class Server {
         ct.writeMsg(dealMessage);
     }
 
+    private void StartGame() {
+
+        firstPlayerIndex++;
+
+        ClientThread ct = Clients.get(firstPlayerIndex);
+
+        String msg = "'" + ct.username + "' needs to draw his/her card. ";
+
+        Message PlayGameMessage = new Message(
+                MessageType.PLAYGAME_SERVERREQUEST.getValue(), false, msg,
+                false, ErrorMessageType.NONE.getValue());
+
+        PlayGameMessage.setPlayGameMessage(
+                new PlayGameMessage(ct.playername));
+
+        ct.writeMsg(PlayGameMessage);
+    }
+
     /**
      * One instance of this thread will run for each client
      */
@@ -238,7 +260,9 @@ public class Server {
         //
         String playername;
 
-        Integer dealamount;
+        Integer biddingAmount;
+
+        String selectedCard;
 
         private ArrayList<String> setsOfCards;
 
@@ -362,24 +386,83 @@ public class Server {
 
                         if (clientIndex == 3) {
 
-                            sendStartPlayRequestMessage(Clients.get(0).playername, Clients.get(0).username);
+                            clientIndex = -1;
+
+                            gameStart = true;
+
+                            StartGame();
+
+                            break;
                         } else {
 
-                            // read the bid message
                             BiddingMessage biddingMessage = this.message.getBiddingMessage();
 
-                            display(biddingMessage.getPlayerName() + "sends his bid as " + biddingMessage.getAmount());
-
-                            // saving the bid amount with client
                             for (int i = Clients.size(); --i >= 0;) {
                                 ClientThread ct = Clients.get(i);
+                                display("uniqueid " + ct.id + " System player name "
+                                        + ct.playername + " real username" + ct.username);
 
                                 if (ct.playername == biddingMessage.getPlayerName()) {
-                                    ct.dealamount = biddingMessage.getAmount();
+                                    ct.biddingAmount = biddingMessage.getAmount();
                                 }
                             }
 
                             sendBiddingRequestMessage();
+                        }
+                        break;
+
+                    case PLAYGAME_CLIENTRESPONSE:
+
+                        if (firstPlayerIndex == 3) {
+
+                            firstPlayerIndex = -1;
+
+                            checkWonGamePlayer();
+
+                            break;
+                        } else {
+
+                            PlayGameMessage playMessage = this.message.getPlayGameMessage();
+
+                            String cardSelectedUsername = playMessage.getPlayerName();
+                            String card = playMessage.getCard();
+                            String suit = card.substring(0);
+
+                            if (gameStart) {
+                                gameStart = false;
+
+                                SelectedCardSuit = suit;
+                            }
+
+                            if (!SelectedCardSuit.equalsIgnoreCase(suit) && checkAnyIlleaglePlay(cardSelectedUsername, suit)) {
+
+                            } else {
+
+                                display(this.message.getMessage());
+
+                                for (int i = Clients.size(); --i >= 0;) {
+                                    ClientThread ct = Clients.get(i);
+
+                                    if (ct.playername == cardSelectedUsername) {
+                                        ct.selectedCard = card;
+
+                                        display(cardSelectedUsername + " selected " + card);
+                                    }
+                                }
+
+                                String returnMsg = cardSelectedUsername + " selected " + card;
+
+                                returnMessage = new Message(
+                                        MessageType.PLAYGAME_SERVERRESPONSE.getValue(),
+                                        false, returnMsg, false, ErrorMessageType.NONE.getValue());
+
+                                returnMessage.setPlayGameMessage(new PlayGameMessage(this.playername,
+                                        card));
+
+                                boradastToOtherClients(this, returnMessage);
+
+                                StartGame();
+                            }
                         }
                         break;
                     case DEAL_CARD_TO_SERVER:
@@ -456,16 +539,39 @@ public class Server {
 
         }
 
-        private void sendStartPlayRequestMessage(String playerName, String username) {
+        private void checkWonGamePlayer() {
 
-            String msg = username + "needs to select a card'";
+            String[] selectedCards = new String[5];
 
-            Message message = new Message(
-                    MessageType.STARTPLAY_SERVERREQUEST.getValue(),
-                    false, msg, false, ErrorMessageType.NONE.getValue());
+            for (int i = Clients.size(); --i >= 0;) {
+                ClientThread ct = Clients.get(i);
 
-            message.setDealMessage(new DealMessage(playerName));
+                selectedCards[i] = ct.selectedCard;
+            }
 
+        }
+
+        private String highestCard(String[] selectedCards) {
+
+            String highestCard = "";
+            int highestValue = 0;
+
+            for (String card : selectedCards) {
+
+                Integer cardValue = Integer.parseInt(card.substring(1, card.length()));
+
+                if (highestValue < cardValue) {
+                    highestValue = cardValue;
+                    highestCard = card;
+                }
+            }
+
+            return highestCard;
+
+        }
+
+        private boolean checkAnyIlleaglePlay(String cardSelectedUsername, String suit) {
+            return false;
         }
 
     }
