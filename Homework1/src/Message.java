@@ -19,6 +19,10 @@ public class Message implements Serializable {
 
     private PlayGameMessage playGameMessage;
 
+    private GameStatMessage gameStatMessage;
+
+    private MatchStatMessage matchStatMessage;
+
     private boolean isError;
 
     private int errorType;
@@ -72,6 +76,22 @@ public class Message implements Serializable {
 
     void setPlayGameMessage(PlayGameMessage playGameMessage) {
         this.playGameMessage = playGameMessage;
+    }
+
+    GameStatMessage getGameStatMessage() {
+        return this.gameStatMessage;
+    }
+
+    void setGameStatMessage(GameStatMessage gameStatMessage) {
+        this.gameStatMessage = gameStatMessage;
+    }
+
+    MatchStatMessage getMatchStatMessage() {
+        return this.matchStatMessage;
+    }
+
+    void setMatchStatMessage(MatchStatMessage matchStatMessage) {
+        this.matchStatMessage = matchStatMessage;
     }
 
     boolean isError() {

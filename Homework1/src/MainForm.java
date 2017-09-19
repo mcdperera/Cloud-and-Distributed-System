@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -60,8 +61,8 @@ public final class MainForm extends javax.swing.JFrame {
         usernameLabel = new java.awt.Label();
         label3 = new java.awt.Label();
         dealAmountLabel = new java.awt.Label();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        gameStatTextArea = new javax.swing.JTextArea();
+        matchStatTextArea = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         connectMenuItem = new javax.swing.JMenuItem();
@@ -171,20 +172,24 @@ public final class MainForm extends javax.swing.JFrame {
 
         dealAmountLabel.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 8)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Game stat needs to add.\n\n\t--------Blue Team----------\t---------Red Team----\n\tPlayer 1 \tPlayer 2 \tPlayer 3\tPlayer 4\nBid\t5\t6\t7\t8\t\nWon tricks\t2\t3\t5\t6");
-        jScrollPane1.setViewportView(jTextArea1);
+        gameStatTextArea.setColumns(20);
+        gameStatTextArea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        gameStatTextArea.setRows(5);
+
+        matchStatTextArea.setColumns(20);
+        matchStatTextArea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        matchStatTextArea.setRows(5);
 
         javax.swing.GroupLayout mainInfoPanelLayout = new javax.swing.GroupLayout(mainInfoPanel);
         mainInfoPanel.setLayout(mainInfoPanelLayout);
         mainInfoPanelLayout.setHorizontalGroup(
             mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainInfoPanelLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainInfoPanelLayout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainInfoPanelLayout.createSequentialGroup()
+                    .addComponent(gameStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(matchStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(mainInfoPanelLayout.createSequentialGroup()
                         .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,8 +198,7 @@ public final class MainForm extends javax.swing.JFrame {
                         .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dealAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(serverConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(serverConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         mainInfoPanelLayout.setVerticalGroup(
@@ -212,9 +216,11 @@ public final class MainForm extends javax.swing.JFrame {
                 .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dealAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(110, 110, 110))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(gameStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(matchStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         fileMenu.setText("File");
@@ -264,7 +270,7 @@ public final class MainForm extends javax.swing.JFrame {
                                 .addGap(282, 282, 282)
                                 .addComponent(b1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(playerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -281,7 +287,6 @@ public final class MainForm extends javax.swing.JFrame {
                                 .addComponent(r2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(b2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(334, 334, 334)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -462,15 +467,15 @@ public final class MainForm extends javax.swing.JFrame {
     private java.awt.Label dealAmountLabel;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JTextArea gameStatTextArea;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private java.awt.Label label1;
     private java.awt.Label label3;
     private java.awt.Label label4;
     private java.awt.Panel mainInfoPanel;
+    private javax.swing.JTextArea matchStatTextArea;
     private java.awt.Panel playerPanel;
     private java.awt.Label r1Label;
     private java.awt.Panel r1Panel;
@@ -521,6 +526,8 @@ public final class MainForm extends javax.swing.JFrame {
             displayServerConnection();
         } else {
             ClientObj.display("Cancelled");
+
+            System.exit(0);
         }
 
     }
@@ -553,22 +560,37 @@ public final class MainForm extends javax.swing.JFrame {
 
     private void addBidPopup() {
 
-        JTextField dealText = new JTextField("5");
-
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
         panel.add(new JLabel("Your bid"));
-        panel.add(dealText);
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("1");
+        model.addElement("2");
+        model.addElement("3");
+        model.addElement("4");
+        model.addElement("5");
+        model.addElement("6");
+        model.addElement("7");
+        model.addElement("8");
+        model.addElement("9");
+        model.addElement("10");
+        model.addElement("11");
+        model.addElement("12");
+        model.addElement("13");
+
+        JComboBox comboBox = new JComboBox(model);
+        panel.add(comboBox);
 
         int result = JOptionPane.showConfirmDialog(null, panel, this.Username + " add your bid.",
-                JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        int amount = Integer.parseInt(dealText.getText());
+        int amount = Integer.parseInt(comboBox.getSelectedItem().toString());
 
         Message message = new Message(MessageType.BIDDING_CLIENTRESPONSE.getValue(),
                 true, Username + "send bid amount.", false, ErrorMessageType.NONE.getValue());
 
-        if (result == JOptionPane.OK_OPTION) {
+        if (result == JOptionPane.YES_OPTION) {
 
             dealAmountLabel.setText(Integer.toString(amount));
 
@@ -580,6 +602,24 @@ public final class MainForm extends javax.swing.JFrame {
         ClientObj.sendMessage(message);
     }
 
+    private void trickWonPopup(String username, String team) {
+
+        String displayMessage = "This trick won by " + username + " in " + team;
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel(displayMessage));
+
+        JOptionPane.showConfirmDialog(null, panel, displayMessage,
+                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        removeAllComponents(b1Panel);
+        removeAllComponents(r1Panel);
+        removeAllComponents(b2Panel);
+        removeAllComponents(r2Panel);
+
+    }
+
     private void appendTextCommonMessage(String message) {
         commonMessageTextArea.append(message);
     }
@@ -589,7 +629,7 @@ public final class MainForm extends javax.swing.JFrame {
     }
 
     private void sendSelectedCard(String card) {
-        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogButton = JOptionPane.YES_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null,
                 "Would you like procced?", "Warning", dialogButton);
         if (dialogResult == JOptionPane.YES_OPTION) {
@@ -692,6 +732,8 @@ public final class MainForm extends javax.swing.JFrame {
             playerPanel.revalidate();
             playerPanel.repaint();
 
+            playerPanel.setEnabled(false);
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -716,28 +758,13 @@ public final class MainForm extends javax.swing.JFrame {
 
     private void sendSelectedCardToServer(String card) {
         Message message = new Message(MessageType.PLAYGAME_CLIENTRESPONSE.getValue(),
-                true, Username + " selected card : " + card, false, ErrorMessageType.NONE.getValue());
+                true, this.Username + " selected card : " + card, false, ErrorMessageType.NONE.getValue());
 
-        message.setPlayGameMessage(new PlayGameMessage(CurrentPlayer,
+        message.setPlayGameMessage(new PlayGameMessage(this.CurrentPlayer,
                 card));
-
-        ClientObj.sendMessage(message);
+        this.ClientObj.sendMessage(message);
     }
 
-//    private Panel GetPanel(String playerName) {
-//
-//        Panel returnPanel = null;
-//        if (playerName.equalsIgnoreCase("b1")) {
-//            returnPanel = b1Panel;
-//        } else if (playerName.equalsIgnoreCase("b2")) {
-//            returnPanel = b2Panel;
-//        } else if (playerName.equalsIgnoreCase("r1")) {
-//            returnPanel = r1Panel;
-//        } else if (playerName.equalsIgnoreCase("r2")) {
-//            returnPanel = r2Panel;
-//        }
-//        return returnPanel;
-//    }
     class ListenFromServer extends Thread {
 
         public void run() {
@@ -779,6 +806,12 @@ public final class MainForm extends javax.swing.JFrame {
                             break;
                         case PLAYGAME_SERVERRESPONSE:
                             setOtherPlayerCard(message.getPlayGameMessage());
+                            break;
+                        case PLAYGAME_SERVERRESPONSE_PLAYER_WON_TRICK:
+                            setTrickWonMessage(message.getPlayGameMessage());
+                            break;
+                        case PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME:
+                            setTeamWonMessage(message.getGameStatMessage(), message.getMatchStatMessage());
                             break;
 
                     }
@@ -888,6 +921,32 @@ public final class MainForm extends javax.swing.JFrame {
                         selectPanel(playGameMessage.getPlayerName()));
 
             }
+        }
+
+        private void setTrickWonMessage(PlayGameMessage playGameMessage) {
+            trickWonPopup(playGameMessage.getUsername(), playGameMessage.getTeam());
+        }
+
+        private void setTeamWonMessage(GameStatMessage gameStatMessage, MatchStatMessage matchStatMessage) {
+
+            String gameStat = "";
+
+            for (String userStat : gameStatMessage.getUsernameBids()) {
+                gameStat += userStat + "\n";
+            }
+
+            gameStatTextArea.setText(gameStat);
+
+            if (matchStatMessage != null) {
+                String matchStat = "";
+
+                matchStat = "Blue team score : " + matchStatMessage.getBlueTeamScore() + "\n";
+                matchStat += "Red team score : " + matchStatMessage.getRedTeamScore();
+
+                matchStatTextArea.setText(matchStat);
+
+            }
+
         }
 
     }

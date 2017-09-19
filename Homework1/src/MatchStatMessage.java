@@ -6,11 +6,28 @@ import java.io.Serializable;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Charmal
  */
-public class MatchStatMessage  implements Serializable {
-    
+public class MatchStatMessage extends PlayerMessage implements Serializable {
+
+    public Integer teamRedScore;
+
+    public Integer teamBlueScore;
+
+    public MatchStatMessage(String playerName, Integer teamRedScore, Integer teamBlueScore) {
+        super(playerName);
+        this.teamRedScore = teamRedScore;
+        this.teamBlueScore = teamBlueScore;
+
+    }
+
+    String getRedTeamScore() {
+        return this.teamRedScore.toString();
+    }
+
+    String getBlueTeamScore() {
+        return this.teamBlueScore.toString();
+    }
 }

@@ -15,6 +15,8 @@ public class PlayGameMessage extends PlayerMessage implements Serializable {
 
     private String card;
     private Panel panel;
+    private String username;
+    private String team;
 
     PlayGameMessage(String playerName) {
         super(playerName);
@@ -25,11 +27,25 @@ public class PlayGameMessage extends PlayerMessage implements Serializable {
         this.card = card;
     }
 
+    PlayGameMessage(String playerName, String username, String team) {
+        super(playerName);
+        this.username = username;
+        this.team = team;
+    }
+
     String getCard() {
         return this.card;
     }
 
     Panel getPanel() {
         return this.panel;
+    }
+
+    String getUsername() {
+        return username;
+    }
+    
+    String getTeam() {
+        return team;
     }
 }

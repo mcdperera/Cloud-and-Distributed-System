@@ -1,40 +1,34 @@
 
 import java.io.Serializable;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Charmal
  */
 public class GameStatMessage extends PlayerMessage implements Serializable {
 
-    String[] getUsernames() {
-        return this.usernames;
+    List<String> getUsernameBids() {
+        return this.usernamesBids;
     }
-    
-    String[] getBids() {
-        return this.bids;
+
+    String getTeam() {
+        return this.team;
     }
-    
-     String[] getWonTricks() {
-        return this.wonTricks;
-    }
-  
-    public String[] usernames = {"", "OSU", "OSU1", "OSU2", "OSU3"};
-    
-    public String[] bids = {"Bids", "5", "5", "5", "5"};
-    
-    public String[] wonTricks = {"Wontricks" ,"5", "5", "5", "5"};
-    
-    public GameStatMessage(String playerName) {
+
+    public String team;
+
+    public List<String> usernamesBids;// = {"OSU : 5/3 " , "OSU1 : 5/3 ", "OSU2 : 5/3 ", "OSU3 : 5/3 "};
+
+    public GameStatMessage(String playerName, String team, List<String> usernamesBids) {
         super(playerName);
+        this.team = team;
+        this.usernamesBids = usernamesBids;
     }
-    
-    
-    
+
 }
