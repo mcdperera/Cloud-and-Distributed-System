@@ -172,13 +172,18 @@ public final class MainForm extends javax.swing.JFrame {
 
         dealAmountLabel.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
+        gameStatTextArea.setEditable(false);
         gameStatTextArea.setColumns(20);
         gameStatTextArea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         gameStatTextArea.setRows(5);
+        gameStatTextArea.setFocusable(false);
 
+        matchStatTextArea.setEditable(false);
         matchStatTextArea.setColumns(20);
         matchStatTextArea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         matchStatTextArea.setRows(5);
+        matchStatTextArea.setEnabled(false);
+        matchStatTextArea.setFocusable(false);
 
         javax.swing.GroupLayout mainInfoPanelLayout = new javax.swing.GroupLayout(mainInfoPanel);
         mainInfoPanel.setLayout(mainInfoPanelLayout);
@@ -602,6 +607,24 @@ public final class MainForm extends javax.swing.JFrame {
         ClientObj.sendMessage(message);
     }
 
+    private void playWrongCardPopup(PlayGameMessage message) throws IOException {
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("You draw a wrong card "));
+
+        JOptionPane.showConfirmDialog(null, panel, "You draw a wrong card",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        drawImage(message.getCard());
+
+        removeAllComponents(CurrentPanel);
+
+        drawPlayerPanel();
+
+        playerPanel.setEnabled(true);
+    }
+
     private void trickWonPopup(String username, String team) {
 
         String displayMessage = "This trick won by " + username + " in " + team;
@@ -618,6 +641,22 @@ public final class MainForm extends javax.swing.JFrame {
         removeAllComponents(b2Panel);
         removeAllComponents(r2Panel);
 
+    }
+
+    private void matchWonPopup(MatchWonMessage matchWonMessage) {
+        String displayMessage = "Match won by " + matchWonMessage.getWonTeam() + " team";
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel(displayMessage));
+
+        JOptionPane.showConfirmDialog(null, panel, displayMessage,
+                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        removeAllComponents(b1Panel);
+        removeAllComponents(r1Panel);
+        removeAllComponents(b2Panel);
+        removeAllComponents(r2Panel);
     }
 
     private void appendTextCommonMessage(String message) {
@@ -713,30 +752,39 @@ public final class MainForm extends javax.swing.JFrame {
         try {
 
             for (final String card : CardList) {
-                Image img = getImage(card);
 
-                JButton button = new JButton();
-                button.setName(card);
-                button.setIcon(new ImageIcon(img));
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        sendSelectedCard(card);
-                    }
-                });
-                button.setSize(50, 75);
-
-                playerPanel.add(button);
+                drawImage(card);
             }
 
-            playerPanel.revalidate();
-            playerPanel.repaint();
-
-            playerPanel.setEnabled(false);
+            drawPlayerPanel();
 
         } catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+
+    private void drawPlayerPanel() {
+        playerPanel.revalidate();
+        playerPanel.repaint();
+
+        playerPanel.setEnabled(false);
+    }
+
+    private void drawImage(final String card) throws IOException {
+        Image img = getImage(card);
+
+        JButton button = new JButton();
+        button.setName(card);
+        button.setIcon(new ImageIcon(img));
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendSelectedCard(card);
+            }
+        });
+        button.setSize(50, 75);
+
+        playerPanel.add(button);
     }
 
     private void selectCard() {
@@ -805,13 +853,20 @@ public final class MainForm extends javax.swing.JFrame {
                             playGameMessage(message.getPlayGameMessage());
                             break;
                         case PLAYGAME_SERVERRESPONSE:
-                            setOtherPlayerCard(message.getPlayGameMessage());
+                            if (message.isError()) {
+                                playWrongCardPopup(message.getPlayGameMessage());
+                            } else {
+                                setOtherPlayerCard(message.getPlayGameMessage());
+                            }
                             break;
                         case PLAYGAME_SERVERRESPONSE_PLAYER_WON_TRICK:
                             setTrickWonMessage(message.getPlayGameMessage());
                             break;
+                        case PLAYGAME_SERVERRESPONSE_TEAM_SCORE:
+                            setTeamScoreMessage(message.getGameStatMessage(), message.getMatchStatMessage());
+                            break;
                         case PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME:
-                            setTeamWonMessage(message.getGameStatMessage(), message.getMatchStatMessage());
+                            setMatchWonMessage(message.getMatchWonMessage());
                             break;
 
                     }
@@ -900,7 +955,7 @@ public final class MainForm extends javax.swing.JFrame {
                     break;
                 case BIDDING_LARGERBID:
                     break;
-                case DEAL_CHEATCARD:
+                case PLAY_CHEATCARD:
                     break;
                 default:
                     throw new AssertionError(messageType.name());
@@ -927,7 +982,7 @@ public final class MainForm extends javax.swing.JFrame {
             trickWonPopup(playGameMessage.getUsername(), playGameMessage.getTeam());
         }
 
-        private void setTeamWonMessage(GameStatMessage gameStatMessage, MatchStatMessage matchStatMessage) {
+        private void setTeamScoreMessage(GameStatMessage gameStatMessage, ArrayList<MatchStatMessage> matchStatMessageList) {
 
             String gameStat = "";
 
@@ -937,16 +992,30 @@ public final class MainForm extends javax.swing.JFrame {
 
             gameStatTextArea.setText(gameStat);
 
-            if (matchStatMessage != null) {
-                String matchStat = "";
+            int redTeamMarks = 0, blueTeamMarks = 0;
 
-                matchStat = "Blue team score : " + matchStatMessage.getBlueTeamScore() + "\n";
-                matchStat += "Red team score : " + matchStatMessage.getRedTeamScore();
+            if (matchStatMessageList.size() > 0) {
+                String matchStat = "Blue team Score" + "\t" + "Red team Score" + "\n";
+
+                for (MatchStatMessage matchStatMessage : matchStatMessageList) {
+
+                    redTeamMarks += matchStatMessage.getRedTeamScore();
+                    blueTeamMarks += matchStatMessage.getBlueTeamScore();
+
+                    matchStat += matchStatMessage.getBlueTeamScore()
+                            + "\t" + matchStatMessage.getRedTeamScore() + "\n";
+                }
+
+                matchStat += blueTeamMarks + "\t" + redTeamMarks + "\n";
 
                 matchStatTextArea.setText(matchStat);
 
             }
 
+        }
+
+        private void setMatchWonMessage(MatchWonMessage matchWonMessage) {
+            matchWonPopup(matchWonMessage);
         }
 
     }

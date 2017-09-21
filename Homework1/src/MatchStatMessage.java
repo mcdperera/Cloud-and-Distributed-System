@@ -12,22 +12,24 @@ import java.io.Serializable;
  */
 public class MatchStatMessage extends PlayerMessage implements Serializable {
 
+    public Integer round;
+
     public Integer teamRedScore;
 
     public Integer teamBlueScore;
 
-    public MatchStatMessage(String playerName, Integer teamRedScore, Integer teamBlueScore) {
+    public MatchStatMessage(String playerName, Integer round, Integer teamRedScore, Integer teamBlueScore) {
         super(playerName);
+        this.round = round;
         this.teamRedScore = teamRedScore;
         this.teamBlueScore = teamBlueScore;
-
     }
 
-    String getRedTeamScore() {
-        return this.teamRedScore.toString();
+    Integer getRedTeamScore() {
+        return this.teamRedScore;
     }
 
-    String getBlueTeamScore() {
-        return this.teamBlueScore.toString();
+    Integer getBlueTeamScore() {
+        return this.teamBlueScore;
     }
 }

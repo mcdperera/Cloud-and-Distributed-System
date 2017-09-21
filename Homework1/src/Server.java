@@ -32,6 +32,8 @@ public class Server {
 
     private final ArrayList<ClientThread> Clients;
 
+    private final ArrayList<MatchStatMessage> MatchStat;
+
     private final SimpleDateFormat simpleDateFormat;
 
     private final int port;
@@ -43,9 +45,11 @@ public class Server {
 
     private String SelectedTrickCardSuit;
 
-    private static String redTeamName = "Red";
+    private static final String redTeamName = "Red";
 
-    private static String blueTeamName = "Blue";
+    private static final String blueTeamName = "Blue";
+
+    private static final int winScore = 60;
 
     /**
      * Desired port to connect with the client.
@@ -59,10 +63,14 @@ public class Server {
         simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
 
         Clients = new ArrayList<>();
+
+        MatchStat = new ArrayList<>();
     }
 
     /**
      * Server going to start.
+     *
+     * @throws java.lang.InterruptedException
      */
     public void start() throws InterruptedException {
         keepGoing = true;
@@ -432,7 +440,7 @@ public class Server {
                             // Start the trick after the bidding approved.
                             trickPlayCount = 0;
 
-                            sendTrickStatMessage(null);
+                            sendTrickStatMessage();
 
                             playTrick();
 
@@ -451,29 +459,36 @@ public class Server {
                         String suit = card.substring(0, 1);
 
                         if (trickPlayCount == 1) {
-
                             SelectedTrickCardSuit = suit;
                         }
 
                         if (!SelectedTrickCardSuit.equalsIgnoreCase(suit)
-                                && checkAnyIlleaglePlay(cardSelectedPlayername, suit)) {
+                                && checkAnyIlleaglePlay(cardSelectedPlayername, SelectedTrickCardSuit)) {
+
+                            String usernameNotUniqueMessage = "User '" + username + "' play .";
+
+                            display(usernameNotUniqueMessage);
+
+                            returnMessage = new Message(
+                                    MessageType.PLAYGAME_SERVERRESPONSE.getValue(),
+                                    false, usernameNotUniqueMessage, true, ErrorMessageType.PLAY_CHEATCARD.getValue());
+
+                            returnMessage.setPlayGameMessage(new PlayGameMessage(this.playername,
+                                    card));
+
+                            writeMsg(returnMessage);
 
                         } else {
 
                             display(this.message.getMessage());
 
-                            for (int i = Clients.size(); --i >= 0;) {
-                                ClientThread ct = Clients.get(i);
+                            ClientThread ct = getClient(cardSelectedPlayername);
 
-                                if (ct.playername.equalsIgnoreCase(cardSelectedPlayername)) {
+                            ct.selectedCard = card;
 
-                                    ct.selectedCard = card;
+                            ct.setsOfCards.remove(card);
 
-                                    ct.setsOfCards.remove(card);
-
-                                    display(cardSelectedPlayername + " selected " + card);
-                                }
-                            }
+                            display(cardSelectedPlayername + " selected " + card);
 
                             String returnMsg = cardSelectedPlayername + " selected " + card;
 
@@ -494,6 +509,8 @@ public class Server {
                                 // Display Player who won the trick.
                                 String wonPlayer = checkWonGamePlayer();
 
+                                SelectedTrickCardSuit = "";
+
                                 returnMsg = wonPlayer + " player won the trick.";
 
                                 returnMessage = new Message(
@@ -511,10 +528,38 @@ public class Server {
                                     Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                                 }
 
-                                sendTrickStatMessage(null);
+                                sendTrickStatMessage();
 
-                                if (gameTrickPlayCount == 13) {
-                                    sendTrickStatMessage(sendMatchStatMessage());
+                                if (gameTrickPlayCount == 2) {
+
+                                    setMatchStatMessage();
+
+                                    sendTrickStatMessage();
+
+                                    MatchWonMessage matchWonMessage = isMatchWon();
+
+                                    if (matchWonMessage != null) {
+
+                                        returnMessage = new Message(
+                                                MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME.getValue(),
+                                                false, returnMsg, false, ErrorMessageType.NONE.getValue());
+
+                                        returnMessage.setMatchWonMessage(matchWonMessage);
+
+                                        boradastToAll(returnMessage);
+
+                                    } else {
+
+                                        try {
+                                            TimeUnit.SECONDS.sleep(5);
+                                        } catch (InterruptedException ex) {
+                                            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+
+                                        dealCards();
+
+                                        sendBiddingRequestMessage();
+                                    }
 
                                 } else {
                                     playTrick();
@@ -608,7 +653,12 @@ public class Server {
 
             for (int i = Clients.size(); --i >= 0;) {
                 ClientThread ct = Clients.get(i);
-                selectedCards[i] = ct.selectedCard;
+
+                String suit = ct.selectedCard.substring(0, 1);
+
+                if (SelectedTrickCardSuit.equalsIgnoreCase(suit)) {
+                    selectedCards[i] = ct.selectedCard;
+                }
             }
 
             String highestCard = getHighestPlayedCard(selectedCards);
@@ -645,21 +695,17 @@ public class Server {
 
         }
 
-        private boolean checkAnyIlleaglePlay(String cardSelectedplayerName, String suit) {
+        private boolean checkAnyIlleaglePlay(String playerName, String suit) {
 
-            for (int i = Clients.size(); --i >= 0;) {
-                ClientThread ct = Clients.get(i);
+            ClientThread client = getClient(playerName);
 
-                if (ct.playername.equalsIgnoreCase(cardSelectedplayerName)) {
+            for (String card : client.setsOfCards) {
 
-                    for (String card : ct.setsOfCards) {
-
-                        if (card.substring(0).equalsIgnoreCase(suit)) {
-                            return true;
-                        }
-                    }
+                if (card.substring(0, 1).equalsIgnoreCase(suit)) {
+                    return true;
                 }
             }
+
             return false;
         }
 
@@ -667,13 +713,13 @@ public class Server {
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
-        private void sendTrickStatMessage(MatchStatMessage matchStatMessage) {
+        private void sendTrickStatMessage() {
 
             String returnMsg = team + " team won the game.";
 
             //String team;
             Message returnMessage = new Message(
-                    MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME.getValue(),
+                    MessageType.PLAYGAME_SERVERRESPONSE_TEAM_SCORE.getValue(),
                     false, returnMsg, false, ErrorMessageType.NONE.getValue());
 
             List<String> usernameBids = new ArrayList<>();
@@ -689,40 +735,39 @@ public class Server {
 
             returnMessage.setGameStatMessage(gameStatMessage);
 
-            if (matchStatMessage != null) {
-                returnMessage.setMatchStatMessage(matchStatMessage);
-            }
+            returnMessage.setMatchStatMessage(MatchStat);
 
             boradastToAll(returnMessage);
 
         }
 
-        private MatchStatMessage sendMatchStatMessage() {
+        private void setMatchStatMessage() {
 
             String returnMsg = team + " team won the game.";
 
             int redTeamScore = 0;
             int blueTeamScore = 0;
 
-            //String team;
-            Message returnMessage = new Message(
-                    MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME.getValue(),
-                    false, returnMsg, false, ErrorMessageType.NONE.getValue());
-
             for (int i = Clients.size(); --i >= 0;) {
                 ClientThread ct = Clients.get(i);
 
-                int bidDiff = ct.getBid(ct) - ct.getwonTrick(ct);
+                int bidTricks = ct.getBid(ct);
+                int wonTricks = ct.getwonTrick(ct);
+
+                int marks = wonTricks >= bidTricks ? bidTricks * 10
+                        + wonTricks - bidTricks : bidTricks * 10;
 
                 if (ct.team.equalsIgnoreCase(redTeamName)) {
-                    redTeamScore += (bidDiff < 0 ? -50 * bidDiff : bidDiff);
+                    redTeamScore += marks;
                 } else {
-                    blueTeamScore += (bidDiff < 0 ? -50 * bidDiff : bidDiff);
+                    blueTeamScore += marks;
                 }
             }
 
-            return new MatchStatMessage("p2", redTeamScore, blueTeamScore);
+            MatchStatMessage newMatchStatMessage = new MatchStatMessage("",
+                    MatchStat.size() + 1, redTeamScore, blueTeamScore);
 
+            MatchStat.add(newMatchStatMessage);
         }
 
         private Integer getBid(ClientThread ct) {
@@ -746,6 +791,58 @@ public class Server {
             }
 
             return wonTrickCount;
+        }
+
+        private MatchWonMessage isMatchWon() {
+
+            int redTeamMarks = 0, blueTeamMarks = 0;
+
+            for (MatchStatMessage matchStatMessage : MatchStat) {
+                blueTeamMarks += matchStatMessage.getBlueTeamScore();
+                redTeamMarks += matchStatMessage.getRedTeamScore();
+            }
+
+            String wonTeamName = "";
+
+            if (redTeamMarks > winScore && redTeamMarks > blueTeamMarks) {
+
+                wonTeamName = redTeamName;
+
+            } else if (blueTeamMarks > winScore && blueTeamMarks > redTeamMarks) {
+
+                wonTeamName = blueTeamName;
+            } else if (blueTeamMarks > winScore && redTeamMarks > winScore) {
+                {
+                    if (redTeamMarks > blueTeamMarks) {
+                        wonTeamName = redTeamName;
+                    } else {
+                        wonTeamName = blueTeamName;
+                    }
+                }
+            }
+
+            if (wonTeamName.isEmpty()) {
+                return null;
+            } else {
+                return new MatchWonMessage("", wonTeamName);
+            }
+        }
+
+        private ClientThread getClient(String playername) {
+            ClientThread client = null;
+
+            for (int i = Clients.size(); --i >= 0;) {
+                ClientThread ct = Clients.get(i);
+
+                if (ct.playername.equalsIgnoreCase(playername)) {
+
+                    client = ct;
+
+                    break;
+                }
+            }
+
+            return client;
         }
 
     }

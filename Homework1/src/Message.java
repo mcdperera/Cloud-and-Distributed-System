@@ -1,5 +1,6 @@
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Message implements Serializable {
 
@@ -21,7 +22,9 @@ public class Message implements Serializable {
 
     private GameStatMessage gameStatMessage;
 
-    private MatchStatMessage matchStatMessage;
+    private ArrayList<MatchStatMessage> matchStatMessage;
+
+    private MatchWonMessage matchWonMessage;
 
     private boolean isError;
 
@@ -86,12 +89,20 @@ public class Message implements Serializable {
         this.gameStatMessage = gameStatMessage;
     }
 
-    MatchStatMessage getMatchStatMessage() {
+    ArrayList<MatchStatMessage> getMatchStatMessage() {
         return this.matchStatMessage;
     }
 
-    void setMatchStatMessage(MatchStatMessage matchStatMessage) {
+    void setMatchStatMessage(ArrayList<MatchStatMessage> matchStatMessage) {
         this.matchStatMessage = matchStatMessage;
+    }
+
+    MatchWonMessage getMatchWonMessage() {
+        return this.matchWonMessage;
+    }
+
+    void setMatchWonMessage(MatchWonMessage matchWonMessage) {
+        this.matchWonMessage = matchWonMessage;
     }
 
     boolean isError() {
@@ -105,4 +116,5 @@ public class Message implements Serializable {
     String getErrorMessage() {
         return ErrorMessageType.getErrorMessgae(this.errorType);
     }
+
 }

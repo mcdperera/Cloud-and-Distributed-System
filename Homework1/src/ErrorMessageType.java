@@ -1,3 +1,4 @@
+
 import java.io.Serializable;
 
 /*
@@ -11,9 +12,9 @@ import java.io.Serializable;
  */
 public enum ErrorMessageType implements Serializable {
     NONE(0),
-    USERNAME_EXISTS(1),    
+    USERNAME_EXISTS(1),
     BIDDING_LARGERBID(2),
-    DEAL_CHEATCARD(3);
+    PLAY_CHEATCARD(3);
 
     private final int value;
 
@@ -34,7 +35,9 @@ public enum ErrorMessageType implements Serializable {
             case 2:
                 messageType = ErrorMessageType.BIDDING_LARGERBID;
                 break;
-            
+            case 3:
+                messageType = ErrorMessageType.PLAY_CHEATCARD;
+                break;
             default:
                 break;
         }
@@ -42,7 +45,7 @@ public enum ErrorMessageType implements Serializable {
         return messageType;
     }
 
-     public static String getErrorMessgae(int value) {
+    public static String getErrorMessgae(int value) {
         String errorMessage = "";
         switch (value) {
             case 1:
@@ -50,8 +53,11 @@ public enum ErrorMessageType implements Serializable {
                 break;
             case 2:
                 errorMessage = "Your team bidding is too large";
+                break;  
+            case 3:
+                errorMessage = "You draw a worng card";
                 break;
-            
+
             default:
                 break;
         }
