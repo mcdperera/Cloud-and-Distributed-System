@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
@@ -182,7 +183,6 @@ public final class MainForm extends javax.swing.JFrame {
         matchStatTextArea.setColumns(20);
         matchStatTextArea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         matchStatTextArea.setRows(5);
-        matchStatTextArea.setEnabled(false);
         matchStatTextArea.setFocusable(false);
 
         javax.swing.GroupLayout mainInfoPanelLayout = new javax.swing.GroupLayout(mainInfoPanel);
@@ -192,8 +192,8 @@ public final class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainInfoPanelLayout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(gameStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(matchStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gameStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainInfoPanelLayout.createSequentialGroup()
                         .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,11 +221,10 @@ public final class MainForm extends javax.swing.JFrame {
                 .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dealAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(gameStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(matchStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(1, 1, 1)
+                .addComponent(gameStatTextArea, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(matchStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         fileMenu.setText("File");
@@ -310,7 +309,7 @@ public final class MainForm extends javax.swing.JFrame {
                 .addComponent(commonMessageTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(107, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -640,11 +639,30 @@ public final class MainForm extends javax.swing.JFrame {
         removeAllComponents(r1Panel);
         removeAllComponents(b2Panel);
         removeAllComponents(r2Panel);
-
     }
 
     private void matchWonPopup(MatchWonMessage matchWonMessage) {
-        String displayMessage = "Match won by " + matchWonMessage.getWonTeam() + " team";
+
+        if (matchWonMessage.getWonTeam() != null) {
+
+            String displayMessage = "Match won by " + matchWonMessage.getWonTeam() + " team";
+
+            JPanel panel = new JPanel(new GridLayout(0, 1));
+
+            panel.add(new JLabel(displayMessage));
+
+            JOptionPane.showConfirmDialog(null, panel, displayMessage,
+                    JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            removeAllComponents(b1Panel);
+            removeAllComponents(r1Panel);
+            removeAllComponents(b2Panel);
+            removeAllComponents(r2Panel);
+        }
+    }
+
+    private void dealAgainPopup() {
+        String displayMessage = "Match not finished. Server deals cards again";
 
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
@@ -657,6 +675,8 @@ public final class MainForm extends javax.swing.JFrame {
         removeAllComponents(r1Panel);
         removeAllComponents(b2Panel);
         removeAllComponents(r2Panel);
+        removeAllComponents(playerPanel);
+
     }
 
     private void appendTextCommonMessage(String message) {
@@ -863,9 +883,14 @@ public final class MainForm extends javax.swing.JFrame {
                             setTrickWonMessage(message.getPlayGameMessage());
                             break;
                         case PLAYGAME_SERVERRESPONSE_TEAM_SCORE:
-                            setTeamScoreMessage(message.getGameStatMessage(), message.getMatchStatMessage());
+                            setTeamScoreMessage(message.getGameStatMessage());
+                            setMatchStatMessage(message.getMatchStatMessage());
                             break;
-                        case PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME:
+                        case PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME_WITH_DEAL_CARDS:
+                            setMatchStatMessage(message.getMatchStatMessage());
+                            setDealAgainMessage();
+                        case PLAYGAME_SERVERRESPONSE_TEAM_WON_MATCH:
+                            setMatchStatMessage(message.getMatchStatMessage());
                             setMatchWonMessage(message.getMatchWonMessage());
                             break;
 
@@ -982,42 +1007,29 @@ public final class MainForm extends javax.swing.JFrame {
             trickWonPopup(playGameMessage.getUsername(), playGameMessage.getTeam());
         }
 
-        private void setTeamScoreMessage(GameStatMessage gameStatMessage, ArrayList<MatchStatMessage> matchStatMessageList) {
+        private void setTeamScoreMessage(GameStatMessage gameStatMessage) {
 
             String gameStat = "";
+
+            gameStat = "user(team)" + "\t" + "Bid" + "Won tricks" + "\n";
 
             for (String userStat : gameStatMessage.getUsernameBids()) {
                 gameStat += userStat + "\n";
             }
-
             gameStatTextArea.setText(gameStat);
+        }
 
-            int redTeamMarks = 0, blueTeamMarks = 0;
-
-            if (matchStatMessageList.size() > 0) {
-                String matchStat = "Blue team Score" + "\t" + "Red team Score" + "\n";
-
-                for (MatchStatMessage matchStatMessage : matchStatMessageList) {
-
-                    redTeamMarks += matchStatMessage.getRedTeamScore();
-                    blueTeamMarks += matchStatMessage.getBlueTeamScore();
-
-                    matchStat += matchStatMessage.getBlueTeamScore()
-                            + "\t" + matchStatMessage.getRedTeamScore() + "\n";
-                }
-
-                matchStat += blueTeamMarks + "\t" + redTeamMarks + "\n";
-
-                matchStatTextArea.setText(matchStat);
-
-            }
-
+        private void setMatchStatMessage(String matchStat) {
+            matchStatTextArea.setText(matchStat);
         }
 
         private void setMatchWonMessage(MatchWonMessage matchWonMessage) {
             matchWonPopup(matchWonMessage);
         }
 
+        private void setDealAgainMessage() {
+            dealAgainPopup();
+        }
     }
 
 }

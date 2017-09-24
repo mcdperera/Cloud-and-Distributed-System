@@ -26,7 +26,8 @@ public enum MessageType implements Serializable {
     PLAYGAME_SERVERRESPONSE(12),
     PLAYGAME_SERVERRESPONSE_PLAYER_WON_TRICK(13),
     PLAYGAME_SERVERRESPONSE_TEAM_SCORE(14),
-    PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME(15);
+    PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME_WITH_DEAL_CARDS(15),
+    PLAYGAME_SERVERRESPONSE_TEAM_WON_MATCH(16);
 
     private final int value;
 
@@ -84,7 +85,10 @@ public enum MessageType implements Serializable {
                 messageType = MessageType.PLAYGAME_SERVERRESPONSE_TEAM_SCORE;
                 break;
             case 15:
-                messageType = MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME;
+                messageType = MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME_WITH_DEAL_CARDS;
+                break;
+            case 16:
+                messageType = MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_MATCH;
                 break;
             default:
                 break;

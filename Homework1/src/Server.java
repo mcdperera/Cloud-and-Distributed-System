@@ -32,13 +32,11 @@ public class Server {
 
     private final ArrayList<ClientThread> Clients;
 
-    private final ArrayList<MatchStatMessage> MatchStat;
+    private final ArrayList<MatchStat> MatchStatList;
 
     private final SimpleDateFormat simpleDateFormat;
 
     private final int port;
-
-    private PackOfCard packOfCard = new PackOfCard();
 
     // When stoping the server needs to change.
     private boolean keepGoing;
@@ -49,7 +47,11 @@ public class Server {
 
     private static final String blueTeamName = "Blue";
 
-    private static final int winScore = 60;
+    private static final int winScore = 10;
+
+    private static final int maxRoundTrickCount = 3;
+
+    private MatchStat CurrentMatchStat;
 
     /**
      * Desired port to connect with the client.
@@ -64,7 +66,7 @@ public class Server {
 
         Clients = new ArrayList<>();
 
-        MatchStat = new ArrayList<>();
+        MatchStatList = new ArrayList<>();
     }
 
     /**
@@ -203,6 +205,9 @@ public class Server {
     }
 
     private synchronized void dealCards() {
+
+        PackOfCard packOfCards = new PackOfCard();
+
         for (int i = Clients.size(); --i >= 0;) {
             ClientThread ct = Clients.get(i);
 
@@ -212,7 +217,7 @@ public class Server {
                     MessageType.DEAL_CARDS_TO_CLIENT.getValue(), false, msg,
                     false, ErrorMessageType.NONE.getValue());
 
-            ArrayList<String> dealCards = packOfCard.getSetofCards(13);
+            ArrayList<String> dealCards = packOfCards.getSetofCards(13);
 
             cardMessage.setCardMessage(new CardMessage(ct.playername,
                     dealCards));
@@ -378,6 +383,7 @@ public class Server {
         public void run() {
 
             boolean keepGoing = true;
+
             while (keepGoing) {
 
                 try {
@@ -453,10 +459,17 @@ public class Server {
                     case PLAYGAME_CLIENTRESPONSE:
 
                         PlayGameMessage playMessage = this.message.getPlayGameMessage();
-
                         String cardSelectedPlayername = playMessage.getPlayerName();
                         String card = playMessage.getCard();
                         String suit = card.substring(0, 1);
+
+                        if (CurrentMatchStat == null) {
+
+                            ClientThread client = getClient(cardSelectedPlayername);
+
+                            CurrentMatchStat = new MatchStat(client.id,
+                                    MatchStatList.size() + 1, 0, 0);
+                        }
 
                         if (trickPlayCount == 1) {
                             SelectedTrickCardSuit = suit;
@@ -507,7 +520,7 @@ public class Server {
                                 gameTrickPlayCount++;
 
                                 // Display Player who won the trick.
-                                String wonPlayer = checkWonGamePlayer();
+                                String wonPlayer = checkWonTrickPlayer();
 
                                 SelectedTrickCardSuit = "";
 
@@ -530,24 +543,25 @@ public class Server {
 
                                 sendTrickStatMessage();
 
-                                if (gameTrickPlayCount == 2) {
+                                if (gameTrickPlayCount == maxRoundTrickCount) {
 
-                                    setMatchStatMessage();
-
-                                    sendTrickStatMessage();
+                                    setRoundStatMessage();
 
                                     MatchWonMessage matchWonMessage = isMatchWon();
 
                                     if (matchWonMessage != null) {
 
+                                        returnMsg = matchWonMessage.getWonTeam() + " wons the match.";
+
                                         returnMessage = new Message(
-                                                MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME.getValue(),
+                                                MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_MATCH.getValue(),
                                                 false, returnMsg, false, ErrorMessageType.NONE.getValue());
+
+                                        returnMessage.setMatchStatMessage(getMatchStat());
 
                                         returnMessage.setMatchWonMessage(matchWonMessage);
 
                                         boradastToAll(returnMessage);
-
                                     } else {
 
                                         try {
@@ -556,9 +570,30 @@ public class Server {
                                             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                                         }
 
+                                        CurrentMatchStat = null;
+
+                                        returnMsg = "Either red team or blue team cannot win the Match. So next round needs to start.";
+
+                                        returnMessage = new Message(
+                                                MessageType.PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME_WITH_DEAL_CARDS.getValue(),
+                                                false, returnMsg, false, ErrorMessageType.NONE.getValue());
+
+                                        returnMessage.setMatchStatMessage(getMatchStat());
+
+                                        boradastToAll(returnMessage);
+
                                         dealCards();
 
                                         sendBiddingRequestMessage();
+
+                                        firstPlayerIndex = nextRoundPlayerIndex();
+                                        gameTrickPlayCount = 0;
+
+                                        for (ClientThread clientThread : Clients) {
+                                            clientThread.biddingAmount = 0;
+                                            clientThread.selectedCard = "";
+                                            clientThread.wonTrickCouont = 0;
+                                        }
                                     }
 
                                 } else {
@@ -645,11 +680,11 @@ public class Server {
 
         }
 
-        private String checkWonGamePlayer() {
+        private String checkWonTrickPlayer() {
 
             String trickWonPlayer = "";
 
-            String[] selectedCards = new String[4];
+            ArrayList<String> selectedCards = new ArrayList<>();
 
             for (int i = Clients.size(); --i >= 0;) {
                 ClientThread ct = Clients.get(i);
@@ -657,7 +692,7 @@ public class Server {
                 String suit = ct.selectedCard.substring(0, 1);
 
                 if (SelectedTrickCardSuit.equalsIgnoreCase(suit)) {
-                    selectedCards[i] = ct.selectedCard;
+                    selectedCards.add(ct.selectedCard);
                 }
             }
 
@@ -676,7 +711,7 @@ public class Server {
             return trickWonPlayer;
         }
 
-        private String getHighestPlayedCard(String[] selectedCards) {
+        private String getHighestPlayedCard(ArrayList<String> selectedCards) {
 
             String highestCard = "";
             int highestValue = 0;
@@ -709,13 +744,9 @@ public class Server {
             return false;
         }
 
-        private void gameWonMesage() {
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
         private void sendTrickStatMessage() {
 
-            String returnMsg = team + " team won the game.";
+            String returnMsg = team + " team won the trick.";
 
             //String team;
             Message returnMessage = new Message(
@@ -727,23 +758,20 @@ public class Server {
             for (int i = Clients.size(); --i >= 0;) {
                 ClientThread ct = Clients.get(i);
 
-                usernameBids.add(ct.username + " :" + ct.getBid(ct) + "/" + ct.getwonTrick(ct));
-
+                usernameBids.add(ct.username + "(" + ct.team + ")" + "\t" + ct.getBid(ct) + "\t" + ct.getwonTrick(ct));
             }
 
-            GameStatMessage gameStatMessage = new GameStatMessage("p1", "RedTeam", usernameBids);
+            GameStatMessage gameStatMessage = new GameStatMessage("p1", "", usernameBids);
 
             returnMessage.setGameStatMessage(gameStatMessage);
 
-            returnMessage.setMatchStatMessage(MatchStat);
+            returnMessage.setMatchStatMessage(getMatchStat());
 
             boradastToAll(returnMessage);
 
         }
 
-        private void setMatchStatMessage() {
-
-            String returnMsg = team + " team won the game.";
+        private void setRoundStatMessage() {
 
             int redTeamScore = 0;
             int blueTeamScore = 0;
@@ -755,7 +783,7 @@ public class Server {
                 int wonTricks = ct.getwonTrick(ct);
 
                 int marks = wonTricks >= bidTricks ? bidTricks * 10
-                        + wonTricks - bidTricks : bidTricks * 10;
+                        + wonTricks - bidTricks : bidTricks * -10;
 
                 if (ct.team.equalsIgnoreCase(redTeamName)) {
                     redTeamScore += marks;
@@ -764,18 +792,17 @@ public class Server {
                 }
             }
 
-            MatchStatMessage newMatchStatMessage = new MatchStatMessage("",
-                    MatchStat.size() + 1, redTeamScore, blueTeamScore);
+            CurrentMatchStat.setRedTeamScore(redTeamScore);
 
-            MatchStat.add(newMatchStatMessage);
+            CurrentMatchStat.setBlueTeamScore(blueTeamScore);
+
+            MatchStatList.add(CurrentMatchStat);
         }
 
         private Integer getBid(ClientThread ct) {
 
             Integer bidAmount = 0;
-
             if (ct.biddingAmount != null) {
-
                 bidAmount = ct.biddingAmount;
             }
 
@@ -786,10 +813,8 @@ public class Server {
             Integer wonTrickCount = 0;
 
             if (ct.wonTrickCouont != null) {
-
                 wonTrickCount = ct.wonTrickCouont;
             }
-
             return wonTrickCount;
         }
 
@@ -797,9 +822,9 @@ public class Server {
 
             int redTeamMarks = 0, blueTeamMarks = 0;
 
-            for (MatchStatMessage matchStatMessage : MatchStat) {
-                blueTeamMarks += matchStatMessage.getBlueTeamScore();
-                redTeamMarks += matchStatMessage.getRedTeamScore();
+            for (MatchStat matchStat : MatchStatList) {
+                blueTeamMarks += matchStat.getBlueTeamScore();
+                redTeamMarks += matchStat.getRedTeamScore();
             }
 
             String wonTeamName = "";
@@ -843,6 +868,44 @@ public class Server {
             }
 
             return client;
+        }
+
+        private String getMatchStat() {
+
+            String returnString = "Round " + "\t" + "Blue" + "\t" + "Red" + "\n";
+
+            int redTeamMarks = 0, blueTeamMarks = 0;
+
+            for (MatchStat matchStat : MatchStatList) {
+
+                redTeamMarks += matchStat.getRedTeamScore();
+                blueTeamMarks += matchStat.getBlueTeamScore();
+
+                returnString += matchStat.getRound() + "\t" + matchStat.getBlueTeamScore() + "\t" + matchStat.getRedTeamScore() + "\n";
+
+            }
+            returnString += "__________________________________" + "\n";
+
+            returnString += MatchStatList.size() + "\t" + blueTeamMarks + "\t" + redTeamMarks + "\n";
+
+            return returnString;
+        }
+
+        private int nextRoundPlayerIndex() {
+
+            int index = 0;
+
+            for (MatchStat matchStat : MatchStatList) {
+                index = matchStat.getPlayerIndex();
+            }
+
+            if (index == 3) {
+                index = 0;
+            } else {
+                index++;
+            }
+
+            return index;
         }
 
     }

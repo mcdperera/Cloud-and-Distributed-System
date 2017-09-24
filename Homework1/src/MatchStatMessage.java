@@ -1,5 +1,7 @@
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,24 +14,49 @@ import java.io.Serializable;
  */
 public class MatchStatMessage extends PlayerMessage implements Serializable {
 
-    public Integer round;
+    protected static final long serialVersionUID = 1112122200L;
 
-    public Integer teamRedScore;
+    public final ArrayList<MatchStat> MatchStatList;
 
-    public Integer teamBlueScore;
-
-    public MatchStatMessage(String playerName, Integer round, Integer teamRedScore, Integer teamBlueScore) {
+    public MatchStatMessage(String playerName, ArrayList<MatchStat> MatchStatList) {
         super(playerName);
-        this.round = round;
-        this.teamRedScore = teamRedScore;
-        this.teamBlueScore = teamBlueScore;
+        this.MatchStatList = MatchStatList;
     }
 
-    Integer getRedTeamScore() {
-        return this.teamRedScore;
+    ArrayList<MatchStat> getMatchStatMessageList() {
+        return MatchStatList;
     }
 
-    Integer getBlueTeamScore() {
-        return this.teamBlueScore;
-    }
+//    /**
+//     *
+//     */
+//    public final Integer round;
+//
+//    public final Integer teamRedScore;
+//
+//    public final Integer teamBlueScore;
+//
+//    //public final List<MatchStatMessage> getMatchStatMessageList;
+//
+//    public MatchStatMessage(String playerName, Integer round, Integer teamRedScore, Integer teamBlueScore) {
+//        super(playerName);
+//        this.round = round;
+//        this.teamRedScore = teamRedScore;
+//        this.teamBlueScore = teamBlueScore;
+//    }
+//
+//    Integer getRedTeamScore() {
+//        return this.teamRedScore;
+//    }
+//
+//    Integer getBlueTeamScore() {
+//        return this.teamBlueScore;
+//    }
+//    List<MatchStat> getMatchStatMessageList() {
+//        return matchStatMessageList;
+//    }
+//
+//    vpod setMatchStatMessageList(List<MatchStatMessage> matchStatMessageList) {
+//        this.matchStatMessageList = matchStatMessageList;
+//    }
 }
