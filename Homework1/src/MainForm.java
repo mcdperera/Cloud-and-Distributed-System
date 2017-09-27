@@ -6,6 +6,7 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
@@ -13,11 +14,14 @@ import java.awt.Panel;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -70,6 +74,12 @@ public final class MainForm extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 700));
@@ -257,6 +267,55 @@ public final class MainForm extends javax.swing.JFrame {
         fileMenu.getAccessibleContext().setAccessibleDescription("");
 
         helpMenu.setText("Help");
+
+        jMenuItem1.setText("Registration");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrationHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(jMenuItem1);
+
+        jMenuItem3.setText("Bidding");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                biddingHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(jMenuItem3);
+
+        jMenuItem4.setText("Play");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(jMenuItem4);
+
+        jMenuItem5.setText("Won Trick");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wonTrickHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(jMenuItem5);
+
+        jMenuItem6.setText("Won Round");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wonRoundHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(jMenuItem6);
+
+        jMenuItem7.setText("Won Match");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wonMatchHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(jMenuItem7);
+
         jMenuBar1.add(helpMenu);
 
         setJMenuBar(jMenuBar1);
@@ -423,6 +482,41 @@ public final class MainForm extends javax.swing.JFrame {
         consoleMessagePopup();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void registrationHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrationHelpActionPerformed
+        openHtml("help/registration.html");
+    }//GEN-LAST:event_registrationHelpActionPerformed
+
+    private void biddingHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_biddingHelpActionPerformed
+        openHtml("help/bidding.html");
+    }//GEN-LAST:event_biddingHelpActionPerformed
+
+    private void playHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playHelpActionPerformed
+        openHtml("help/play.html");
+    }//GEN-LAST:event_playHelpActionPerformed
+
+    private void wonTrickHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonTrickHelpActionPerformed
+        openHtml("help/wontrick.html");
+    }//GEN-LAST:event_wonTrickHelpActionPerformed
+
+    private void wonRoundHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonRoundHelpActionPerformed
+         openHtml("help/wonround.html");
+    }//GEN-LAST:event_wonRoundHelpActionPerformed
+
+    private void wonMatchHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonMatchHelpActionPerformed
+          openHtml("help/wonmatch.html");
+    }//GEN-LAST:event_wonMatchHelpActionPerformed
+
+    private void openHtml(String fileWithPath) {
+        File htmlFile = new File(fileWithPath);
+
+        try {
+            // open the default web browser for the HTML page
+            Desktop.getDesktop().browse(htmlFile.toURI());
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -474,7 +568,13 @@ public final class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextArea gameStatTextArea;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private java.awt.Label label1;
     private java.awt.Label label3;
     private java.awt.Label label4;
