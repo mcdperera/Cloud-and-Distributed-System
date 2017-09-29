@@ -3,22 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
 import java.awt.Panel;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +25,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -114,8 +107,9 @@ public final class MainForm extends javax.swing.JFrame {
             .addGap(0, 130, Short.MAX_VALUE)
         );
 
+        r1Label.setAlignment(java.awt.Label.CENTER);
         r1Label.setBackground(new java.awt.Color(255, 51, 51));
-        r1Label.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        r1Label.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
         r2Panel.setBackground(new java.awt.Color(255, 51, 51));
 
@@ -130,8 +124,9 @@ public final class MainForm extends javax.swing.JFrame {
             .addGap(0, 130, Short.MAX_VALUE)
         );
 
+        r2Label.setAlignment(java.awt.Label.CENTER);
         r2Label.setBackground(new java.awt.Color(255, 51, 51));
-        r2Label.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        r2Label.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
         b2Panel.setBackground(new java.awt.Color(51, 51, 255));
         b2Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -147,8 +142,9 @@ public final class MainForm extends javax.swing.JFrame {
             .addGap(0, 130, Short.MAX_VALUE)
         );
 
+        b2Label.setAlignment(java.awt.Label.CENTER);
         b2Label.setBackground(new java.awt.Color(0, 0, 255));
-        b2Label.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        b2Label.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
         b1Panel.setBackground(new java.awt.Color(51, 51, 255));
 
@@ -163,35 +159,39 @@ public final class MainForm extends javax.swing.JFrame {
             .addGap(0, 130, Short.MAX_VALUE)
         );
 
+        b1Label.setAlignment(java.awt.Label.CENTER);
         b1Label.setBackground(new java.awt.Color(0, 0, 255));
-        b1Label.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        b1Label.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
         commonMessageTextArea.setName(""); // NOI18N
         commonMessageTextArea.setVisible(false);
 
         mainInfoPanel.setBackground(new java.awt.Color(240, 240, 240));
 
+        label4.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         label4.setText("Server Connection");
 
-        serverConnectionLabel.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        serverConnectionLabel.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
 
+        label1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         label1.setText("Username");
 
-        usernameLabel.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
 
+        label3.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         label3.setText("My bid");
 
-        dealAmountLabel.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        dealAmountLabel.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
 
         gameStatTextArea.setEditable(false);
         gameStatTextArea.setColumns(20);
-        gameStatTextArea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        gameStatTextArea.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         gameStatTextArea.setRows(5);
         gameStatTextArea.setFocusable(false);
 
         matchStatTextArea.setEditable(false);
         matchStatTextArea.setColumns(20);
-        matchStatTextArea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        matchStatTextArea.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         matchStatTextArea.setRows(5);
         matchStatTextArea.setFocusable(false);
 
@@ -223,18 +223,19 @@ public final class MainForm extends javax.swing.JFrame {
                 .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(serverConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addGroup(mainInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dealAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
+                .addGap(21, 21, 21)
                 .addComponent(gameStatTextArea, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(matchStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(matchStatTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         fileMenu.setText("File");
@@ -390,7 +391,7 @@ public final class MainForm extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(b1Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
+                        .addGap(162, 162, 162)
                         .addComponent(r2Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
@@ -468,7 +469,7 @@ public final class MainForm extends javax.swing.JFrame {
             displayServerConnection();
         } else {
             JOptionPane.showConfirmDialog(null, null, "Already connected to the server",
-                    JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
         }
 
 
@@ -499,11 +500,11 @@ public final class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_wonTrickHelpActionPerformed
 
     private void wonRoundHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonRoundHelpActionPerformed
-         openHtml("help/wonround.html");
+        openHtml("help/wonround.html");
     }//GEN-LAST:event_wonRoundHelpActionPerformed
 
     private void wonMatchHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonMatchHelpActionPerformed
-          openHtml("help/wonmatch.html");
+        openHtml("help/wonmatch.html");
     }//GEN-LAST:event_wonMatchHelpActionPerformed
 
     private void openHtml(String fileWithPath) {
@@ -599,7 +600,7 @@ public final class MainForm extends javax.swing.JFrame {
         panel.add(commonMessageTextArea);
 
         JOptionPane.showConfirmDialog(null, panel, "Console Message",
-                JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
     }
 
@@ -645,20 +646,19 @@ public final class MainForm extends javax.swing.JFrame {
         panel.add(new JLabel("Username"));
         panel.add(usernameText);
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Username already exists. Use another user name.",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (result == JOptionPane.OK_OPTION) {
+        JOptionPane.showConfirmDialog(null, panel, "Username already exists. Use another user name.",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-            Message message = new Message(MessageType.ONNECTIONESTABLISH_CLIENT_USERNAMEDUPLICATE_RESPONSE.getValue(),
-                    true, usernameText.getText() + "sends the username again", false, ErrorMessageType.NONE.getValue());
+        Message message = new Message(MessageType.ONNECTIONESTABLISH_CLIENT_USERNAMEDUPLICATE_RESPONSE.getValue(),
+                true, usernameText.getText() + "sends the username again", false, ErrorMessageType.NONE.getValue());
 
-            message.setConnectionMessage(new ConnectionMessage(playerName, usernameText.getText()));
+        message.setConnectionMessage(new ConnectionMessage(playerName, usernameText.getText()));
 
-            ClientObj.sendMessage(message);
-        } else {
-            ClientObj.disconnect();
-            //System.exit(0);
-        }
+        ClientObj.sendMessage(message);
+
+        Username = usernameText.getText();
+
+        usernameLabel.setText(Username);
 
     }
 
@@ -687,21 +687,16 @@ public final class MainForm extends javax.swing.JFrame {
         panel.add(comboBox);
 
         int result = JOptionPane.showConfirmDialog(null, panel, this.Username + " add your bid.",
-                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         int amount = Integer.parseInt(comboBox.getSelectedItem().toString());
 
         Message message = new Message(MessageType.BIDDING_CLIENTRESPONSE.getValue(),
                 true, Username + "send bid amount.", false, ErrorMessageType.NONE.getValue());
 
-        if (result == JOptionPane.YES_OPTION) {
+        dealAmountLabel.setText(Integer.toString(amount));
 
-            dealAmountLabel.setText(Integer.toString(amount));
-
-            message.setBiddingMessage(new BiddingMessage(CurrentPlayer, amount));
-        } else {
-            message.setBiddingMessage(new BiddingMessage(CurrentPlayer, 5));
-        }
+        message.setBiddingMessage(new BiddingMessage(CurrentPlayer, amount));
 
         ClientObj.sendMessage(message);
     }
@@ -713,7 +708,7 @@ public final class MainForm extends javax.swing.JFrame {
         panel.add(new JLabel("You draw a wrong card "));
 
         JOptionPane.showConfirmDialog(null, panel, "You draw a wrong card",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         drawImage(message.getCard());
 
@@ -724,16 +719,16 @@ public final class MainForm extends javax.swing.JFrame {
         playerPanel.setEnabled(true);
     }
 
-    private void trickWonPopup(String username, String team) {
+    private void trickWonPopup(String username) {
 
-        String displayMessage = "This trick won by " + username + " in " + team;
+        String displayMessage = "This trick won by " + username;
 
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
         panel.add(new JLabel(displayMessage));
 
         JOptionPane.showConfirmDialog(null, panel, displayMessage,
-                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         removeAllComponents(b1Panel);
         removeAllComponents(r1Panel);
@@ -743,7 +738,7 @@ public final class MainForm extends javax.swing.JFrame {
 
     private void matchWonPopup(MatchWonMessage matchWonMessage) {
 
-        if (matchWonMessage.getWonTeam() != null) {
+        if (matchWonMessage != null && matchWonMessage.getWonTeam() != null) {
 
             String displayMessage = "Match won by " + matchWonMessage.getWonTeam() + " team";
 
@@ -752,7 +747,7 @@ public final class MainForm extends javax.swing.JFrame {
             panel.add(new JLabel(displayMessage));
 
             JOptionPane.showConfirmDialog(null, panel, displayMessage,
-                    JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
             removeAllComponents(b1Panel);
             removeAllComponents(r1Panel);
@@ -769,7 +764,7 @@ public final class MainForm extends javax.swing.JFrame {
         panel.add(new JLabel(displayMessage));
 
         JOptionPane.showConfirmDialog(null, panel, displayMessage,
-                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         removeAllComponents(b1Panel);
         removeAllComponents(r1Panel);
@@ -788,9 +783,10 @@ public final class MainForm extends javax.swing.JFrame {
     }
 
     private void sendSelectedCard(String card) {
-        int dialogButton = JOptionPane.YES_OPTION;
+
         int dialogResult = JOptionPane.showConfirmDialog(null,
-                "Would you like procced?", "Warning", dialogButton);
+                "Would you like procced?", "Warning", JOptionPane.YES_OPTION);
+
         if (dialogResult == JOptionPane.YES_OPTION) {
 
             loadSelectedCard(card, CurrentPanel);
@@ -860,7 +856,7 @@ public final class MainForm extends javax.swing.JFrame {
         try {
 
             CardList = cards;
-            java.util.Collections.sort(CardList);
+            
             loadPlayerPanel();
 
         } catch (Exception ex) {
@@ -915,7 +911,7 @@ public final class MainForm extends javax.swing.JFrame {
             panel.add(new JLabel("Select a card to procced "));
 
             JOptionPane.showConfirmDialog(null, panel, this.Username + " select a card",
-                    JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 
             playerPanel.setEnabled(true);
 
@@ -989,9 +985,12 @@ public final class MainForm extends javax.swing.JFrame {
                         case PLAYGAME_SERVERRESPONSE_TEAM_WON_GAME_WITH_DEAL_CARDS:
                             setMatchStatMessage(message.getMatchStatMessage());
                             setDealAgainMessage();
+                            clearMyBid();
+                            break;
                         case PLAYGAME_SERVERRESPONSE_TEAM_WON_MATCH:
                             setMatchStatMessage(message.getMatchStatMessage());
                             setMatchWonMessage(message.getMatchWonMessage());
+                            clearMyBid();
                             break;
 
                     }
@@ -1104,14 +1103,14 @@ public final class MainForm extends javax.swing.JFrame {
         }
 
         private void setTrickWonMessage(PlayGameMessage playGameMessage) {
-            trickWonPopup(playGameMessage.getUsername(), playGameMessage.getTeam());
+            trickWonPopup(playGameMessage.getUsername());
         }
 
         private void setTeamScoreMessage(GameStatMessage gameStatMessage) {
 
             String gameStat = "";
 
-            gameStat = "user(team)" + "\t" + "Bid" + "Won tricks" + "\n";
+            gameStat = "User(team)" + "\t" + "Bid" + "\t" + "Won" + "\n";
 
             for (String userStat : gameStatMessage.getUsernameBids()) {
                 gameStat += userStat + "\n";
@@ -1129,6 +1128,10 @@ public final class MainForm extends javax.swing.JFrame {
 
         private void setDealAgainMessage() {
             dealAgainPopup();
+        }
+
+        private void clearMyBid() {
+          dealAmountLabel.setText("");
         }
     }
 
