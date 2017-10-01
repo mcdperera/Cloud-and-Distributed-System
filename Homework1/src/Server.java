@@ -786,30 +786,41 @@ public class Server {
 
         private void setRoundStatMessage() {
 
+            int redTeamBidTricks = 0;
+            int blueTeamBidTricks = 0;
+
+            int redTeamTricksWon = 0;
+            int blueTeamTricksWon = 0;
+
             int redTeamScore = 0;
             int blueTeamScore = 0;
 
             for (int i = Clients.size(); --i >= 0;) {
                 ClientThread ct = Clients.get(i);
 
-                int bidTricks = ct.getBid(ct);
-                int wonTricks = ct.getwonTrick(ct);
-
-                int marks = wonTricks >= bidTricks ? bidTricks * 10
-                        + wonTricks - bidTricks : bidTricks * -10;
-
                 if (ct.team.equalsIgnoreCase(redTeamName)) {
-                    redTeamScore += marks;
+                    redTeamBidTricks += ct.getBid(ct);
+                    redTeamTricksWon += ct.getwonTrick(ct);
                 } else {
-                    blueTeamScore += marks;
+                    blueTeamBidTricks += ct.getBid(ct);
+                    blueTeamTricksWon += ct.getwonTrick(ct);
                 }
             }
+
+            redTeamScore = finalScore(redTeamBidTricks, redTeamTricksWon);
+
+            blueTeamScore = finalScore(blueTeamBidTricks, blueTeamTricksWon);
 
             CurrentMatchStat.setRedTeamScore(redTeamScore);
 
             CurrentMatchStat.setBlueTeamScore(blueTeamScore);
 
             MatchStatList.add(CurrentMatchStat);
+        }
+
+        private int finalScore(int bidTricks, int wonTricks) {
+            return (wonTricks >= bidTricks ? bidTricks * 10 + wonTricks - bidTricks
+                    : bidTricks * -10);
         }
 
         private Integer getBid(ClientThread ct) {

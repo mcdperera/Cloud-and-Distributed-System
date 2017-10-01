@@ -67,12 +67,7 @@ public final class MainForm extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 700));
@@ -191,7 +186,7 @@ public final class MainForm extends javax.swing.JFrame {
 
         matchStatTextArea.setEditable(false);
         matchStatTextArea.setColumns(20);
-        matchStatTextArea.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        matchStatTextArea.setFont(new java.awt.Font("Verdana", 0, 9)); // NOI18N
         matchStatTextArea.setRows(5);
         matchStatTextArea.setFocusable(false);
 
@@ -269,53 +264,13 @@ public final class MainForm extends javax.swing.JFrame {
 
         helpMenu.setText("Help");
 
-        jMenuItem1.setText("Registration");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrationHelpActionPerformed(evt);
-            }
-        });
-        helpMenu.add(jMenuItem1);
-
-        jMenuItem3.setText("Bidding");
+        jMenuItem3.setText("Help manual");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 biddingHelpActionPerformed(evt);
             }
         });
         helpMenu.add(jMenuItem3);
-
-        jMenuItem4.setText("Play");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playHelpActionPerformed(evt);
-            }
-        });
-        helpMenu.add(jMenuItem4);
-
-        jMenuItem5.setText("Won Trick");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wonTrickHelpActionPerformed(evt);
-            }
-        });
-        helpMenu.add(jMenuItem5);
-
-        jMenuItem6.setText("Won Round");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wonRoundHelpActionPerformed(evt);
-            }
-        });
-        helpMenu.add(jMenuItem6);
-
-        jMenuItem7.setText("Won Match");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wonMatchHelpActionPerformed(evt);
-            }
-        });
-        helpMenu.add(jMenuItem7);
 
         jMenuBar1.add(helpMenu);
 
@@ -483,29 +438,9 @@ public final class MainForm extends javax.swing.JFrame {
         consoleMessagePopup();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void registrationHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrationHelpActionPerformed
-        openHtml("help/registration.html");
-    }//GEN-LAST:event_registrationHelpActionPerformed
-
     private void biddingHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_biddingHelpActionPerformed
-        openHtml("help/bidding.html");
+        openHtml("help/Manual.pdf");
     }//GEN-LAST:event_biddingHelpActionPerformed
-
-    private void playHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playHelpActionPerformed
-        openHtml("help/play.html");
-    }//GEN-LAST:event_playHelpActionPerformed
-
-    private void wonTrickHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonTrickHelpActionPerformed
-        openHtml("help/wontrick.html");
-    }//GEN-LAST:event_wonTrickHelpActionPerformed
-
-    private void wonRoundHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonRoundHelpActionPerformed
-        openHtml("help/wonround.html");
-    }//GEN-LAST:event_wonRoundHelpActionPerformed
-
-    private void wonMatchHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wonMatchHelpActionPerformed
-        openHtml("help/wonmatch.html");
-    }//GEN-LAST:event_wonMatchHelpActionPerformed
 
     private void openHtml(String fileWithPath) {
         File htmlFile = new File(fileWithPath);
@@ -569,13 +504,8 @@ public final class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextArea gameStatTextArea;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private java.awt.Label label1;
     private java.awt.Label label3;
     private java.awt.Label label4;
@@ -608,7 +538,7 @@ public final class MainForm extends javax.swing.JFrame {
 
         JTextField serverIpText = new JTextField("localhost");
         JTextField portText = new JTextField("1500");
-        JTextField usernameText = new JTextField("OSU");
+        JTextField usernameText = new JTextField(" ");
 
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
@@ -625,8 +555,8 @@ public final class MainForm extends javax.swing.JFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
 
-            ServerConnected = ClientObj.start(serverIpText.getText(),
-                    portText.getText(), usernameText.getText());
+            ServerConnected = ClientObj.start(serverIpText.getText().trim(),
+                    portText.getText().trim(), usernameText.getText().trim());
 
             displayServerConnection();
         } else {
