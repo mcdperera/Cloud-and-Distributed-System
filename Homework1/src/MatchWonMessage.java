@@ -12,13 +12,22 @@ import java.io.Serializable;
  */
 public class MatchWonMessage extends PlayerMessage implements Serializable {
 
+    /**
+     * The team name.
+     */
     private final String teamName;
 
+    /**
+     * Construct of the match Won message.
+     */
     MatchWonMessage(String playerName, String teamName) {
         super(playerName);
         this.teamName = teamName;
     }
 
+    /**
+     * Returns the team name who won the game.
+     */
     String getWonTeam() {
         return this.teamName;
     }

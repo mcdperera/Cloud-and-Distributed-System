@@ -393,9 +393,11 @@ public final class MainForm extends javax.swing.JFrame {
 
         modifyLayouts();
 
-        //addTableView();
     }
 
+    /**
+     *
+     */
     public void displayServerConnection() {
         if (ServerConnected) {
             serverConnectionLabel.setText("Connected");

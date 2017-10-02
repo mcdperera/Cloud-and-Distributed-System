@@ -1,7 +1,6 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,49 +13,31 @@ import java.util.List;
  */
 public class MatchStatMessage extends PlayerMessage implements Serializable {
 
+    /**
+     * The serial version UID
+     */
     protected static final long serialVersionUID = 1112122200L;
 
+    /**
+     * The array list contains the match stat
+     */
     public final ArrayList<MatchStat> MatchStatList;
 
+    /**
+     * Construct the Match stat message
+     *
+     * @param playerName
+     * @param MatchStatList
+     */
     public MatchStatMessage(String playerName, ArrayList<MatchStat> MatchStatList) {
         super(playerName);
         this.MatchStatList = MatchStatList;
     }
 
+    /**
+     * Returns the match stat details.
+     */
     ArrayList<MatchStat> getMatchStatMessageList() {
         return MatchStatList;
     }
-
-//    /**
-//     *
-//     */
-//    public final Integer round;
-//
-//    public final Integer teamRedScore;
-//
-//    public final Integer teamBlueScore;
-//
-//    //public final List<MatchStatMessage> getMatchStatMessageList;
-//
-//    public MatchStatMessage(String playerName, Integer round, Integer teamRedScore, Integer teamBlueScore) {
-//        super(playerName);
-//        this.round = round;
-//        this.teamRedScore = teamRedScore;
-//        this.teamBlueScore = teamBlueScore;
-//    }
-//
-//    Integer getRedTeamScore() {
-//        return this.teamRedScore;
-//    }
-//
-//    Integer getBlueTeamScore() {
-//        return this.teamBlueScore;
-//    }
-//    List<MatchStat> getMatchStatMessageList() {
-//        return matchStatMessageList;
-//    }
-//
-//    vpod setMatchStatMessageList(List<MatchStatMessage> matchStatMessageList) {
-//        this.matchStatMessageList = matchStatMessageList;
-//    }
 }

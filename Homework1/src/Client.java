@@ -8,16 +8,31 @@ import java.io.*;
 //<remarks>http://www.dreamincode.net/forums/topic/259777-a-simple-chat-program-with-clientserver-gui-optional/</remarks>
 public class Client {
 
+    /**
+     * The Input stream
+     */
     public ObjectInputStream sInput;
 
+    /**
+     * The output stream
+     */
     private ObjectOutputStream sOutput;
 
+    /**
+     * The socket
+     */
     private Socket socket;
 
+    /**
+     * Construct the client object.
+     */
     Client() {
 
     }
 
+    /**
+     * Returns the match stat message.
+     */
     public boolean start(String server, String port, String username) {
 
         try {

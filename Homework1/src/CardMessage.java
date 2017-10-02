@@ -13,18 +13,34 @@ import java.util.ArrayList;
  */
 public class CardMessage extends PlayerMessage implements Serializable {
 
+    /**
+     * The card
+     */
     private String card;
+
+    /**
+     * Initial set of cards
+     */
     private ArrayList<String> initialSetOfCards;
 
+    /**
+     * Returns the card.
+     */
     String getCard() {
         return this.card;
     }
 
+    /**
+     * Construct the message.
+     */
     CardMessage(String playerName, ArrayList<String> initialSetOfCards) {
         super(playerName);
         this.initialSetOfCards = initialSetOfCards;
     }
 
+    /**
+     * Get the initial set of cards
+     */
     ArrayList<String> getInitialSetOfCards() {
         return this.initialSetOfCards;
     }

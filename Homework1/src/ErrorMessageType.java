@@ -11,21 +11,53 @@ import java.io.Serializable;
  * @author Charmal
  */
 public enum ErrorMessageType implements Serializable {
-    NONE(0),
-    USERNAME_EXISTS(1),
-    BIDDING_LARGERBID(2),
-    PLAY_CHEATCARD(3);
 
+    /**
+     * None error message type.
+     */
+    NONE(0),
+
+    /**
+     * Username exists error message type.
+     */
+    USERNAME_EXISTS(1),
+
+    /**
+     * bidding large amount error message type.
+     */
+    BIDDING_LARGERBID(2),
+
+    /**
+     * Play cheat card error message type.
+     */
+    PLAY_CHEATCARD(3);
+    
+    /**
+     * the value
+     */
     private final int value;
 
+    
+    /**
+     * Construct of the error message type.
+     */
     private ErrorMessageType(int value) {
         this.value = value;
     }
 
+    /**
+     * Returns the value.
+     * @return
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * 
+     * @param value
+     * @return
+     */
     public static ErrorMessageType getEnum(int value) {
         ErrorMessageType messageType = ErrorMessageType.NONE;
         switch (value) {
@@ -45,6 +77,11 @@ public enum ErrorMessageType implements Serializable {
         return messageType;
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static String getErrorMessgae(int value) {
         String errorMessage = "";
         switch (value) {

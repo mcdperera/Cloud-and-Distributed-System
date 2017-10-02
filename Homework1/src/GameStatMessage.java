@@ -13,18 +13,36 @@ import java.util.List;
  */
 public class GameStatMessage extends PlayerMessage implements Serializable {
 
+     /**
+     * Returns the bids with usernames
+     */
     List<String> getUsernameBids() {
         return this.usernamesBids;
     }
 
+     /**
+     * Returns the name of the team.
+     */
     String getTeam() {
         return this.team;
     }
 
+    /**
+     * The name of the team.
+     */
     public String team;
 
-    public List<String> usernamesBids;// = {"OSU : 5/3 " , "OSU1 : 5/3 ", "OSU2 : 5/3 ", "OSU3 : 5/3 "};
+    /**
+     * Bids put by the users
+     */
+    public List<String> usernamesBids;
 
+    /**
+     * Construct the Game stat message object.
+     * @param playerName
+     * @param team
+     * @param usernamesBids
+     */
     public GameStatMessage(String playerName, String team, List<String> usernamesBids) {
         super(playerName);
         this.team = team;

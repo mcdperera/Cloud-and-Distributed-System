@@ -12,13 +12,33 @@ import java.io.Serializable;
  */
 public class MatchStat implements Serializable {
 
+    /**
+     *
+     */
     public final Integer playerIndex;
+
+    /**
+     *
+     */
     public final Integer round;
 
+    /**
+     *
+     */
     public Integer teamRedScore;
 
+    /**
+     *
+     */
     public Integer teamBlueScore;
 
+    /**
+     *
+     * @param playerIndex
+     * @param round
+     * @param teamRedScore
+     * @param teamBlueScore
+     */
     public MatchStat(Integer playerIndex, Integer round, Integer teamRedScore, Integer teamBlueScore) {
 
         this.playerIndex = playerIndex;

@@ -12,13 +12,22 @@ import java.io.Serializable;
  */
 public class ConnectionMessage extends PlayerMessage implements Serializable {
 
+    /**
+     * the username
+     */
     private String username;
 
+    /**
+     * Construct of the connection message.
+     */
     ConnectionMessage(String playerName, String username) {
         super(playerName);
         this.username = username;
     }
 
+    /**
+     * Returns the username
+     */
     String getUsername() {
         return username;
     }

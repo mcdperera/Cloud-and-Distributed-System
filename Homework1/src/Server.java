@@ -179,6 +179,7 @@ public class Server {
     /**
      *
      * @param args
+     * @throws java.lang.InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
         Server server = new Server(1500);
