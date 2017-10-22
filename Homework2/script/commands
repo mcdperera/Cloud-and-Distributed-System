@@ -1,0 +1,35 @@
+
+//Transfer directory to another linux server
+scp -r /home/cmahapat/unzip/ hadoop1:. : 
+
+// Copy directory contaning files to hadoop cluster 
+hadoop fs -copyFromLocal unzip /cmahapat/
+
+
+**********************************
+******* Question 1 ****************
+**********************************
+
+// Run the jar file
+hadoop jar Homework2.jar Question1 /cmahapat/unzip /cmahapat/output1/1
+
+// Copy the output file from hadoop cluster to local machien
+hadoop fs -copyToLocal /cmahapat/output1/1/part-r-00000
+
+// Open the output file with use of nano editor 
+nano part-r-00000
+
+
+**********************************
+******* Question 2 ****************
+**********************************
+
+
+// Run the jar file
+hadoop jar Homework2.jar Question2 /cmahapat/unzip /cmahapat/output2/1
+
+// Copy the output file from hadoop cluster to local machien
+hadoop fs -copyToLocal /cmahapat/output2/1/part-r-00000
+
+// Open the output file with use of nano editor 
+nano part-r-00000
