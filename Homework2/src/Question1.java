@@ -29,17 +29,17 @@ public class Question1 {
 
 			String tempString = value.toString();
 			String[] tempArray = tempString.split("::");
-			Text title = null;
+			Text url = null;
 			double size = 0;
 
 			/* setting the instance records */
 			try {
 				if (tempArray.length == 5) {
 
-					title = new Text(tempArray[4]);
+					url = new Text(tempArray[2]);
 					size = Double.parseDouble(tempArray[3]);
 
-					context.write(new Text(title), new DoubleWritable(size));
+					context.write(new Text(url), new DoubleWritable(size));
 				}
 
 			} catch (NumberFormatException e) {
@@ -62,13 +62,16 @@ public class Question1 {
 				Reducer<Text, DoubleWritable, Text, DoubleWritable>.Context context) 
 				throws IOException, InterruptedException {
 
-			Double sum = (double) 0;
+			Double weight = (double) 0;
 
 			for (DoubleWritable value : values) {
-				sum = sum + value.get();
+				if	( value.get()>  weight)
+				{
+					weight =  value.get();
+				}	
 			}
 			
-			countMap.put(new Text(key), new DoubleWritable(sum));
+			countMap.put(new Text(key), new DoubleWritable(weight));
 		}
 
 		@Override
