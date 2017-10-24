@@ -1,10 +1,27 @@
-http://cs-skini.me      3.30061663E8
-http://unj.ac.id        1.415988E7
-http://kyujin-ascom.com 1.1749869E7
-http://maxsold.com      9879165.0
-http://cartoonnetwork.com       9586770.0
-http://cartoonnetwork.cl        9586770.0
-http://bsnleuchq.com    7986210.0
-http://classtize.com    7457105.0
-http://phatdatbinhthoi.com      6662051.0
-http://relaxmusic.co    5302398.0
+
+Results by Bigdata mapreduce.
+
+http://btc-i.com        3.13853015E8
+http://cs-skini.me      2.78040455E8
+http://n-azot.ru        3.8236923E7
+http://kcsnews.co.kr    2.1803824E7
+http://live.ci  1.7764488E7
+http://boswtol.com      1.2928509E7
+http://unj.ac.id        1.2733223E7
+http://heeft-nieuwe-jobs.be     1.2704751E7
+http://kyujin-ascom.com 1.1727699E7
+http://likealyzer.com   1.1298813E7
+
+
+Results using bash script 
+
+http://btc-i.com	313853015
+http://cs-skini.me	278040455
+http://n-azot.ru	38236923
+http://kcsnews.co.kr	21803824
+http://live.ci	17764488
+http://boswtol.com	12928509
+http://unj.ac.id	12733223
+http://heeft-nieuwe-jobs.be	12704751
+http://kyujin-ascom.com	11727699
+http://likealyzer.com	11298813
