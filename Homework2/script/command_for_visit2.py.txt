@@ -1,0 +1,2 @@
+Example command to visit sites from line 1001 to 2000: "python visit2.py 1001 2000"
+The script has a absolute path to the input file.  Please edit it to the path of top-1m.csv that you can access.
