@@ -43,4 +43,10 @@ Play is sequential. For the first round, Player1 starts the bid and plays the fi
 Player2 starts the bid and plays the first card. And so on. Within a round, the player who wins the trick,
 plays the next card.
 
+First you need to run the [script](https://github.com/mcdperera/Cloud-and-Distributed-System/blob/master/Homework1/src/Server.java) (has to be done with source):
+
+```sh
+$ java -cp Homework1.jar Server
+```
+
 
