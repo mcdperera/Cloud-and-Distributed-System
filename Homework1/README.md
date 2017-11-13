@@ -61,8 +61,7 @@ First you need to run the [script](https://github.com/mcdperera/Cloud-and-Distri
 ```sh
 $ java -cp HomeWork1.jar MainForm
 ```
-
-![Alt text](/images/screens/2.ClientRunning.png?raw=true "Running the server program")
+![Alt text](/images/screens/1.ServerRunning.png?raw=true "Running the server program")
 
 ![Alt text](/images/screens/2.ClientRunning.png?raw=true "Running the server program")
 
