@@ -44,3 +44,23 @@ Player2 starts the bid and plays the first card. And so on. Within a round, the 
 plays the next card.
 
 
+### run_server
+
+First you need to run the [script](https://github.com/mcdperera/Cloud-and-Distributed-System/blob/master/Homework1/src/Server.java) (has to be done with source):
+
+```sh
+$ java -cp Homework1.jar Server
+```
+
+### run_client
+
+First you need to run the [script](https://github.com/mcdperera/Cloud-and-Distributed-System/blob/master/Homework1/src/MainForm.form) (has to be done with source):
+
+![Alt text](/images/screens/ServerRunning.png?raw=true "Running the server program")
+
+```sh
+$ java -cp HomeWork1.jar MainForm
+```
+
+
+
