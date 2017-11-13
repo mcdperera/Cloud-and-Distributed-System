@@ -56,11 +56,35 @@ $ java -cp Homework1.jar Server
 
 First you need to run the [script](https://github.com/mcdperera/Cloud-and-Distributed-System/blob/master/Homework1/src/MainForm.form) (has to be done with source):
 
-![Alt text](/images/screens/ServerRunning.png?raw=true "Running the server program")
+![Alt text](/images/screens/1.ServerRunning.png?raw=true "Running the server program")
 
 ```sh
 $ java -cp HomeWork1.jar MainForm
 ```
+
+![Alt text](/images/screens/2.ClientRunning.png?raw=true "Running the server program")
+
+![Alt text](/images/screens/2.ClientRunning.png?raw=true "Running the server program")
+
+
+![Alt text](/images/screens/2.ClientRunning_Server messages 1.png?raw=true "Running the server program")
+
+
+![Alt text](/images/screens/3.Client connect with duplicat username and connect again.png?raw=true "Running the server program")
+
+
+![Alt text](/images/screens/4.After4 players connected.png?raw=true "Running the server program")
+
+![Alt text](/images/screens/5.Playerbidding.png?raw=true "Running the server program")
+
+![Alt text](/images/screens/6.After 4 players bid.png?raw=true "Running the server program")
+![Alt text](/images/screens/7.After 4 players draw cards.png?raw=true "Running the server program")
+![Alt text](/images/screens/8.Player1 won updated scores.png?raw=true "Running the server program")
+![Alt text](/images/screens/9.Player1 won.png?raw=true "Running the server program")
+
+![Alt text](/images/screens/10.Finish first round.png?raw=true "Running the server program")
+
+![Alt text](/images/screens/11.When player drawn a wrong card.png?raw=true "Running the server program")
 
 
 
