@@ -75,11 +75,11 @@ $ java -cp HomeWork1.jar MainForm
 
 ![Alt text](images/screens/7.After_4_players_draw_cards.png?raw=true "After 4 players drawn their cards.")
 
-![Alt text](images/screens/9.Player1_won.png?raw=true "Player 1 won.")
-
 ![Alt text](images/screens/8.Player1_won_updated_scores.png?raw=true "Player 1 won the trick and updates the scores.")
 
-![Alt text](images/screens/10.Finish _First_round.png?raw=true "Screen after complete the first round.")
+![Alt text](images/screens/9.Player1_won.png?raw=true "Player 1 won.")
+
+![Alt text](images/screens/10.Finish_First_round.png?raw=true "Screen after complete the first round.")
 
 ![Alt text](images/screens/11.When_player_drawn_a_wrong_card.png?raw=true "Screen with message when player drawn a wrong card.)
 
