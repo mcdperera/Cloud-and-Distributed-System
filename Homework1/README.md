@@ -65,26 +65,26 @@ $ java -cp HomeWork1.jar MainForm
 ![Alt text](images/screens/2.ClientRunning.png?raw=true "Client running.")
 
 
-![Alt text](images/screens/2.ClientRunning_Server messages 1.png?raw=true "When client is running server messages.")
+![Alt text](images/screens/2.ClientRunning_Server_messages_1.png?raw=true "When client is running server messages.")
 
 
-![Alt text](images/screens/3.Client connect with duplicat username and connect again.png?raw=true "When user enters duplicate usernames error messages.")
+![Alt text](images/screens/3.Client_connect_with_duplicate_username_and_connect_again.png?raw=true "When user enters duplicate usernames error messages.")
 
-![Alt text](images/screens/4.After4 players connected.png?raw=true "Screen after the 4 players connected.")
+![Alt text](images/screens/4.After_4_players_connected.png?raw=true "Screen after the 4 players connected.")
 
 ![Alt text](images/screens/5.Playerbidding.png?raw=true "When the player put his bid.")
 
-![Alt text](images/screens/6.After 4 players bid.png?raw=true "Screen after 4 players put their bids.")
+![Alt text](images/screens/6.After_4_players_bid.png?raw=true "Screen after 4 players put their bids.")
 
-![Alt text](images/screens/7.After 4 players draw cards.png?raw=true "After 4 players drawn their cards.")
+![Alt text](images/screens/7.After_4_players_draw_cards.png?raw=true "After 4 players drawn their cards.")
 
-![Alt text](images/screens/9.Player1 won.png?raw=true "Player 1 won.")
+![Alt text](images/screens/9.Player1_won.png?raw=true "Player 1 won.")
 
-![Alt text](images/screens/8.Player1 won updated scores.png?raw=true "Player 1 won the trick and updates the scores.")
+![Alt text](images/screens/8.Player1_won_updated_scores.png?raw=true "Player 1 won the trick and updates the scores.")
 
-![Alt text](images/screens/10.Finish first round.png?raw=true "Screen after complete the first round.")
+![Alt text](images/screens/10.Finish_first_round.png?raw=true "Screen after complete the first round.")
 
-![Alt text](images/screens/11.When player drawn a wrong card.png?raw=true "Screen with message when player drawn a wrong card.)
+![Alt text](images/screens/11.When_player_drawn_a_wrong_card.png?raw=true "Screen with message when player drawn a wrong card.)
 
 
 
