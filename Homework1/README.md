@@ -61,12 +61,9 @@ First you need to run the [script](https://github.com/mcdperera/Cloud-and-Distri
 ```sh
 $ java -cp HomeWork1.jar MainForm
 ```
-
 ![Alt text](images/screens/2.ClientRunning.png?raw=true "Client running.")
 
-
-![Alt text](images/screens/2.ClientRunning_Server_messages_1.png?raw=true "When client is running server messages.")
-
+![Alt text](images/screens/2.ClientRunning_Server_message_1.png?raw=true "When client is running server messages.")
 
 ![Alt text](images/screens/3.Client_connect_with_duplicate_username_and_connect_again.png?raw=true "When user enters duplicate usernames error messages.")
 
@@ -82,7 +79,7 @@ $ java -cp HomeWork1.jar MainForm
 
 ![Alt text](images/screens/8.Player1_won_updated_scores.png?raw=true "Player 1 won the trick and updates the scores.")
 
-![Alt text](images/screens/10.Finish_first_round.png?raw=true "Screen after complete the first round.")
+![Alt text](images/screens/10.Finish _First_round.png?raw=true "Screen after complete the first round.")
 
 ![Alt text](images/screens/11.When_player_drawn_a_wrong_card.png?raw=true "Screen with message when player drawn a wrong card.)
 
