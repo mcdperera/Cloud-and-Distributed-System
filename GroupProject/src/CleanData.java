@@ -14,31 +14,47 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 
 /**
- *  Cleaning the data process
+ * Cleaning the data process
+ *
  * @author Charmal
  */
 public class CleanData {
 
     /**
      * While cleaning the data it write to a file.
+     *
      * @param args
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        String atffPath = "output" + File.separator + "output.txt";
-        String jsonPath = "input";
-        DataCleaner(atffPath, jsonPath);
+
+//        String inputPath = "input";
+//        String outputPath = "output" + File.separator + "output.txt";
+
+        String outputPath;
+        String inputPath;
+
+        if (args.length != 2) {
+            System.out.println("User needs to enter 2 arguments to enter to the server");
+            return;
+        }
+
+        inputPath = args[0];
+        outputPath = args[1];
+
+        DataCleaner(inputPath, outputPath);
     }
 
-     /**
+    /**
      * Data cleaning method.
+     *
      * @param args
      * @throws IOException
      */
-    private static void DataCleaner(String atffPath, String jsonPath) {
+    private static void DataCleaner(String inputPath, String outputPath) {
         try {
-            try (PrintWriter writer = new PrintWriter(atffPath)) {
-                File dirr = new File(jsonPath);
+            try (PrintWriter writer = new PrintWriter(outputPath)) {
+                File dirr = new File(inputPath);
                 File[] files = dirr.listFiles();
                 for (File file : files) {
                     if (file.isFile()) {
@@ -81,8 +97,12 @@ public class CleanData {
                                     username = userObj.get("screen_name").toString();
                                     timezone = userObj.get("time_zone") == null ? "No Time" : userObj.get("time_zone").toString();
 
-                                    writer.println(username + "::" + timestamp + "::" + timezone + "::" + message);
+                                    if (message.toLowerCase().contains("trumph") || message.toLowerCase().contains("republican")) {
 
+                                        writer.println(removeMulitiLines(message));//message);
+                                    }
+
+                                    // writer.println(username + "::" + timestamp + "::" + timezone + "::" + message);
                                 } catch (ParseException ex) {
                                     badRecordCounter++;
                                 }
@@ -98,5 +118,16 @@ public class CleanData {
         } catch (IOException | java.text.ParseException ex) {
         }
 
+    }
+
+    private static String removeMulitiLines(String message) {
+        String[] lines = message.split("\r\n|\r|\n\r\n|\r|\n\r\n|\r|\n\r\n|\r|\n");
+
+        String onelineMessage = "";
+        for (String str : lines) {
+            onelineMessage += str;
+        }
+
+        return onelineMessage;
     }
 }
