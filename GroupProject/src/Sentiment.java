@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Sentiment {
-    
+
     public static void main(String[] args) throws IOException {
 
-//        String inputPath = "output" + File.separator + "output1.txt";
+//        String inputPath = "output" + File.separator + "output.txt";
 //        String outputPath = "output" + File.separator + "output2.txt";
         String inputPath;
         String outputPath;
@@ -49,7 +49,15 @@ public class Sentiment {
                 while ((line = br.readLine()) != null) {
 
                     try {
-                        writer.println(line + " :  " + NLP.findSentiment(line));
+
+                        String[] tweetData = line.split("::");
+
+                        if (tweetData.length > 3) {
+                            writer.println(tweetData[0] + ":: " + tweetData[1] + "::"
+                                    + tweetData[2] + "::" + NLP.findSentiment(tweetData[3]));
+
+                        }
+
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }

@@ -97,12 +97,13 @@ public class CleanData {
                                     username = userObj.get("screen_name").toString();
                                     timezone = userObj.get("time_zone") == null ? "No Time" : userObj.get("time_zone").toString();
 
-                                    if (message.toLowerCase().contains("trumph") || message.toLowerCase().contains("republican")) {
+//                                    if (message.toLowerCase().contains("trumph") || message.toLowerCase().contains("republican")) {
+//
+//                                        writer.println(removeMulitiLines(message));//message);
+//                                    }
 
-                                        writer.println(removeMulitiLines(message));//message);
-                                    }
-
-                                    // writer.println(username + "::" + timestamp + "::" + timezone + "::" + message);
+                                    writer.println(username + "::" + timestamp + "::" + timezone + "::" + removeMulitiLines(message));
+                                    
                                 } catch (ParseException ex) {
                                     badRecordCounter++;
                                 }
