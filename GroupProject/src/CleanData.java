@@ -28,19 +28,19 @@ public class CleanData {
      */
     public static void main(String[] args) throws IOException {
 
-//        String inputPath = "input";
-//        String outputPath = "output" + File.separator + "output.txt";
+        String inputPath = "input";
+        String outputPath = "output" + File.separator + "output.txt";
 
-        String outputPath;
-        String inputPath;
+       // String outputPath;
+       // String inputPath;
 
-        if (args.length != 2) {
-            System.out.println("User needs to enter 2 arguments to enter to the server");
-            return;
-        }
-
-        inputPath = args[0];
-        outputPath = args[1];
+//        if (args.length != 2) {
+//            System.out.println("User needs to enter 2 arguments to enter to the server");
+//            return;
+//        }
+//
+//        inputPath = args[0];
+//        outputPath = args[1];
 
         DataCleaner(inputPath, outputPath);
     }
@@ -97,12 +97,7 @@ public class CleanData {
                                     username = userObj.get("screen_name").toString();
                                     timezone = userObj.get("time_zone") == null ? "No Time" : userObj.get("time_zone").toString();
 
-//                                    if (message.toLowerCase().contains("trumph") || message.toLowerCase().contains("republican")) {
-//
-//                                        writer.println(removeMulitiLines(message));//message);
-//                                    }
-
-                                    writer.println(username + "::" + timestamp + "::" + timezone + "::" + removeMulitiLines(message));
+                                    writer.println(timestamp + "::" + timezone + "::" + removeMulitiLines(message));
                                     
                                 } catch (ParseException ex) {
                                     badRecordCounter++;
