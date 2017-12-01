@@ -1,39 +1,45 @@
+
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author 502759576
  */
 public class Parameters {
 
-    private static int peerId;
+    private int peerId;
 
-    private static String readablePeerId;
+    private String readablePeerId;
 
-    private static String serverIpAddress;
+    private String serverIpAddress;
 
-    private static int portNumber;
+    private int serverPortNumber;
 
-    private static boolean isRandomRoutingType;
+    private boolean isRandomRoutingType;
 
-    private static int searchPeerId;
+    private PingMessage pingMessage;
 
-    private static boolean isSearchPeer;
+    private int searchPeerId;
 
-    private static SearchMessage searchMessage;
+    private SearchMessage searchMessage;
 
+    private List<Routing> routingTable;
+
+    private int routingType;
 
     public Parameters(int peerId, String readablePeerId, String serverIpAddress,
             int portNumber, int routingType) {
-        Parameters.peerId = peerId;
-        Parameters.readablePeerId = readablePeerId;
-        Parameters.serverIpAddress = serverIpAddress;
-        Parameters.portNumber = portNumber;
-        Parameters.isRandomRoutingType = (routingType == 1);
+        this.peerId = peerId;
+        this.readablePeerId = readablePeerId;
+        this.serverIpAddress = serverIpAddress;
+        this.serverPortNumber = portNumber;
+        this.isRandomRoutingType = (routingType == 1);
+        this.routingType = routingType;
     }
 
     int getpeerId() {
@@ -45,19 +51,23 @@ public class Parameters {
     }
 
     int getportNumber() {
-        return portNumber;
+        return serverPortNumber;
+    }
+
+    int getRoutingType() {
+        return routingType;
     }
 
     void setSearchPeerId(int searchPeerId) {
-        Parameters.searchPeerId = searchPeerId;
+        this.searchPeerId = searchPeerId;
     }
 
     int getSearchPeerId() {
-        return Parameters.searchPeerId;
+        return this.searchPeerId;
     }
 
     void setServerAddress(String serverIpAddress) {
-        Parameters.serverIpAddress = serverIpAddress;
+        this.serverIpAddress = serverIpAddress;
     }
 
     String getServerAddress() {
@@ -68,20 +78,28 @@ public class Parameters {
         return isRandomRoutingType;
     }
 
-    boolean isSearchPeer() {
-        return isSearchPeer;
-    }
-
-    void setIsSearchPeer(boolean isSearchPeer) {
-        this.isSearchPeer = isSearchPeer;
-    }
-
     void setSearchMessage(SearchMessage searchMessage) {
-        Parameters.searchMessage = searchMessage;
+        this.searchMessage = searchMessage;
     }
 
     SearchMessage getSearchMessage() {
-        return Parameters.searchMessage;
+        return this.searchMessage;
+    }
+
+    void setPingMessage(PingMessage pingMessage) {
+        this.pingMessage = pingMessage;
+    }
+
+    PingMessage getPingMessage() {
+        return this.pingMessage;
+    }
+
+    void setRoutingTable(List<Routing> routingTable) {
+        this.routingTable = routingTable;
+    }
+
+    List<Routing> getRoutingTable() {
+        return this.routingTable;
     }
 
 }

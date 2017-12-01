@@ -13,7 +13,7 @@ public class Server {
     private static int uniqueId;
 
     // the winning possibility
-    List<String> winningPossibility1 = new ArrayList<>();
+    List<String> winningPossibility1 = new ArrayList<>(); 
     List<String> winningPossibility2 = new ArrayList<>();
     List<String> winningPossibility3 = new ArrayList<>();
     List<String> winningPossibility4 = new ArrayList<>();

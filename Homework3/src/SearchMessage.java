@@ -24,7 +24,13 @@ public class SearchMessage implements Serializable {
 
     private int peerIdOfZ;
 
+    private String zIpAddress;
+
+    private String zReadablePeerId;
+
     private int difference;
+
+    private int neighbourPeerId;
 
     private long startTime;
 
@@ -41,11 +47,11 @@ public class SearchMessage implements Serializable {
         return this.searchId;
     }
 
-    int getFromPeerId() {
+    int getSenderPeerId() {
         return senderPeerId;
     }
 
-    String getFromIpAddress() {
+    String getSenderIpAddress() {
         return senderIpAddress;
     }
 
@@ -53,21 +59,31 @@ public class SearchMessage implements Serializable {
         return searchPeerId;
     }
 
-    void setIdOfZ(int peerIdOfZ) {
+    void setZPeerId(int peerIdOfZ) {
         this.peerIdOfZ = peerIdOfZ;
     }
 
+    int getZPeerId() {
+        return this.peerIdOfZ;
+    }
+
+    void setZIpAddress(String zIpAddress) {
+        this.zIpAddress = zIpAddress;
+    }
+
+    String getZIpAddress() {
+        return this.zIpAddress;
+    }
+
+    void setZReadablePeerId(String zReadablePeerId) {
+        this.zReadablePeerId = zReadablePeerId;
+    }
+
+    String getZReadablePeerId() {
+        return this.zReadablePeerId;
+    }
+
     void incermentHop() {
-        numberOfHops++;
-    }
-
-    @Override
-    public String toString() {
-        return "search " + this.senderPeerId + ":" + this.searchId + ":" + this.searchPeerId
-                + ":" + this.numberOfHops + ":" + ((System.nanoTime() - this.startTime) / 1000000.0) + ":" + peerIdOfZ;
-    }
-
-    void incrementHop() {
         numberOfHops++;
     }
 
@@ -79,4 +95,17 @@ public class SearchMessage implements Serializable {
         return this.difference;
     }
 
+    void setNeighbourPeerId(int neighbourPeerId) {
+        this.neighbourPeerId = neighbourPeerId;
+    }
+
+    int getNeighbourPeerId() {
+        return this.neighbourPeerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Search " + this.senderPeerId + ":" + this.searchId + ":" + this.searchPeerId
+                + ":" + this.numberOfHops + ":" + ((System.nanoTime() - this.startTime) / 1000000.0) + ":" + peerIdOfZ;
+    }
 }

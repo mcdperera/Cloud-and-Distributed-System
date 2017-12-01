@@ -31,7 +31,12 @@ public enum MessageType implements Serializable {
     /**
      * search message type
      */
-    SEARCH(4);
+    SEARCH(4),
+    /**
+     * search finish message type
+     */
+    SEARCHFINISH(5);
+
     /**
      * the value
      */
@@ -74,7 +79,12 @@ public enum MessageType implements Serializable {
             case 3:
                 messageType = MessageType.PINGRESPONSE;
                 break;
-
+            case 4:
+                messageType = MessageType.SEARCH;
+                break;
+            case 5:
+                messageType = MessageType.SEARCHFINISH;
+                break;
             default:
                 break;
         }

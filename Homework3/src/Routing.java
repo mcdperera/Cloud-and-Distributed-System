@@ -8,17 +8,20 @@ import java.io.Serializable;
  */
 /**
  *
- * @author Damith 
+ * @author Damith
  */
-public class RoutingTable implements Serializable {
+public class Routing implements Serializable {
 
     private final int peerId;
 
     private final String ipAddress;
 
-    RoutingTable(int peerId, String ipAddress) {
+    private final String readablePeerId;
+
+    Routing(int peerId, String ipAddress, String readablePeerId) {
         this.peerId = peerId;
         this.ipAddress = ipAddress;
+        this.readablePeerId = readablePeerId;
     }
 
     int getPeerId() {
@@ -26,6 +29,10 @@ public class RoutingTable implements Serializable {
     }
 
     String getServerAddress() {
-       return this.ipAddress;
+        return this.ipAddress;
+    }
+
+    String getReadablePeerId() {
+        return this.readablePeerId;
     }
 }

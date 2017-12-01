@@ -17,13 +17,20 @@ public class Message implements Serializable {
 
     private SearchMessage searchMessage;
 
-    Message(MessageType type) {
+    private String words;
+
+    Message(MessageType type, String words) {
         this.type = type;
+        this.words = words;
     }
 
     // getters
     MessageType getType() {
         return type;
+    }
+
+    String getWords() {
+        return words;
     }
 
     void setPingMessage(PingMessage pingMessage) {

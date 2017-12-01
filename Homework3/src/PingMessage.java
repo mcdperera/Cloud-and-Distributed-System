@@ -12,13 +12,15 @@ import java.io.Serializable;
  */
 public class PingMessage implements Serializable {
 
-    private String readablePeerId;
+    private String senderReadablePeerId;
 
-    private int pingId;
+    private int senderPingId;
 
     private int senderPeerId;
 
     private String senderIpAddress;
+
+    private String receiverReadablePeerId;
 
     private int receiverPeerId;
 
@@ -30,18 +32,21 @@ public class PingMessage implements Serializable {
         this.senderPeerId = peerId;
     }
 
-    PingMessage(String readablePeerId, int pingId, int senderPeerId) {
-        this.readablePeerId = readablePeerId;
-        this.pingId = pingId;
-        
+    PingMessage(String senderReadablePeerId, int senderPingId, int senderPeerId,
+            String senderIpAddress, String receiverIpAddress) {
+
+        this.senderReadablePeerId = senderReadablePeerId;
+        this.senderPingId = senderPingId;
         this.senderPeerId = senderPeerId;
-        this.senderIpAddress = Util.getIpAddress();
-        
+        this.senderIpAddress = senderIpAddress;
+
+        this.receiverIpAddress = receiverIpAddress;
+
         this.startTime = System.nanoTime();
     }
 
     int getPingId() {
-        return this.pingId;
+        return this.senderPingId;
     }
 
     int getSenderPeerId() {
@@ -51,15 +56,23 @@ public class PingMessage implements Serializable {
     String getSernderIpAddress() {
         return senderIpAddress;
     }
-
-    void setReceiverIpAddress() {
-        this.receiverIpAddress = Util.getIpAddress();
+  String getSenderReadablePeerId() {
+        return senderReadablePeerId;
     }
-
+    
+//
+//    void setReceiverIpAddresss(String receiverIpAddress) {
+//        this.receiverIpAddress = receiverIpAddress;
+//    }
+//
     String getReceiverIpAddress() {
         return receiverIpAddress;
     }
-    
+
+    void setReceiverReadablePeerId(String receiverReadablePeerId) {
+        this.receiverReadablePeerId = receiverReadablePeerId;
+    }
+
     void setReceiverPeerId(int toPeerId) {
         this.receiverPeerId = toPeerId;
     }
@@ -67,10 +80,11 @@ public class PingMessage implements Serializable {
     int getReceiverPeerId() {
         return receiverPeerId;
     }
-    
+
     @Override
     public String toString() {
-        return "Ping " + this.readablePeerId + ":" + this.senderPeerId + ":"
+
+        return "Ping " + this.senderPeerId + ":"
                 + this.senderIpAddress + ":" + this.receiverPeerId
                 + ":" + this.receiverIpAddress + ":"
                 + ((System.nanoTime() - this.startTime) / 1000000.0);

@@ -9,7 +9,7 @@ public class GameMessage implements Serializable {
 
     private int type;
     private String message;
-    private String username;
+    private String username;  
     private String location;
     private String removeLocation;
     private boolean isFirstUser;

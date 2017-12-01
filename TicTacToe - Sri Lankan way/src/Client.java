@@ -6,7 +6,7 @@ import java.util.*;
 /*
  * The Client that can be run both as a console or a GUI
  */
-public class Client {
+public class Client {    
 
     // input socket stream
     private ObjectInputStream sInput;
